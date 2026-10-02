@@ -1,14 +1,14 @@
 
-#1 Regras de geração de cóigo
+# Regras de geração de cóigo
 
 + A plataforma web deve ser desenvolvida em HTML5
 + A base de dados deve ser criada e mantida em MySQL
 + A ligção entre página web e base de dados deve ser realizada em Python
 + O código em Python deve utilizar snake_case para a denominação dos atributos
 
-#1 Requisitos do projeto
+# Requisitos do projeto
 
-#2 Requisitos Não Funcionais
+## Requisitos Não Funcionais
 
 - Conformidade com a RGPD.
 - Acessibilidade para todos os utilizadores.
@@ -20,3 +20,5 @@
 - RBAC
 - Garantir a persistência dos dados das contas dos utilizadores
 - Interoperabilidade  com o sistema SIBS
+
+## 
