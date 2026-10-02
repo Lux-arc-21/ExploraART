@@ -15,7 +15,7 @@
 - Encriptação dos dados pessoais e métodos e autenticação.
 - Código com fácil manutenção. 
 - Página web
-- Compatível com os browsers (a definir)
+- Compatível com os browsers Google Chrome, Opera GX, Brave, Mozilla Firefox e Microsoft Edge
 - RBAC
 - Garantir a persistência dos dados das contas dos utilizadores
 - Interoperabilidade  com o sistema SIBS
