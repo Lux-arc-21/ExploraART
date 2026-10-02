@@ -20,4 +20,36 @@
 - Garantir a persistência dos dados das contas dos utilizadores
 - Interoperabilidade  com o sistema SIBS
 
-## 
+## Requisitos Funcionais 
+- O sistema deve permitir entrar na aplicação sem uma conta previamente criada.
+- O sistema deve permitir aos utilizadores convidados criar uma conta.
+- O sistema deve permitir que uma conta seja suspensa ou banida.
+- O utilizador deve ser capaz de iniciar sessão com o nome de utilizador e palavra-chave utilizados na criação da sua conta.
+- Um utilizador registado deve poder recuperar o acesso à sua conta por meio de um formulário acessível no menu de login.
+- Um utilizador registado deve ter a opção de eliminar a sua conta.
+- O sistema deve permitir a diferença entre um utilizador registado e um administrador.
+- O administrador deve ter as mesmas capacidades que um utilizador registado mais a capacidade de poder suspender e banir utilizadores com conta e pode eliminar publicações.
+- O utilizador registado deve dispor de um perfil onde consiga ver o conteúdo que publicou e o seu histórico de interações com outras publicações.
+- Um utilizador registado deve poder criar uma lista de favoritos onde este pode guardar as suas publicações favoritas para visualizar e interagir com elas mais tarde, tal como eliminar as mesmas publicações dos favoritos sempre que quiser..
+- Os utilizadores registados devem ter a capacidade de publicar conteúdos próprios, textuais, musicais, visuais (imagens e vídeo) ou documentos.
+- Os conteúdos publicados devem se subdividir no elemento publicado pelo autor que pode consistir em texto e numa imagem, vídeo, música ou documento. E nos comentários onde qualquer utilizador da aplicação com conta pode comentar o conteúdo.
+- Qualquer utilizador registado deve poder responder a um comentário numa publicação.
+- Qualquer utilizador deve ter a opção de pesquisar por publicações dentro da aplicação.
+- Um utilizador registado deve poder ser capaz de subscrever-se à aplicação.
+- O utilizador deve poder escolher o método de pagamento, sendo as opções MB Way ou Multibanco.
+- Um utilizador registado e com subscrição ativa deve ter a capacidade de cancelar a sua subscrição.
+- Um utilizador com subscrição ativa deve poder ter a capacidade de fazer download de qualquer conteúdo publicado na aplicação.
+- Um utilizador com subscrição ativa deve ter acesso offline aos conteúdos que fez download.
+- Qualquer utilizador registado pode denunciar determinada publicação por incumprimento dos termos de serviço.
+- Uma publicação sinalizada por meio de denúncia deve ser revista por um administrador.
+- Um utilizador registado deve receber notificações, na aplicação, sempre que haja interações com uma das suas publicações.
+- Um utilizador registado deve receber sugestões reativas com base nos conteúdos por ele consumidos.
+- A aplicação deve possuir um separador destinado as definições onde o utilizador pode gerir a sua conta, permissões, notificações, opções de acessibilidade, subscrição
+- Os utilizadores registados devem poder alterar ou eliminar as suas próprias publicações e comentários
+- O sistema deve permitir sugerir música durante a leitura de um livro, servindo como música de fundo, vice versa. 
+- O sistema deve permitir que todos os conteúdos sejam descritos com tags, devendo dispor de pelo menos um.
+- O sistema deve dispor de um leitor de música integrado 
+- O sistema deve permitir a criação de playlists.
+- O sistema deve permitir a criação e gestão de grupos e comunidades, criadas pelos próprios utilizadores.
+- O sistema deve permitir mensagens diretas entre utilizadores.
+
