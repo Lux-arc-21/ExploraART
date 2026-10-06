@@ -37,9 +37,9 @@ User Story - Como administrador, quero que exista uma diferenciação entre o pe
 DoD - Sistema de permissões baseado em papeis (BRAC) implementado; A interface do administrador dispõe de ferramentas de moderação. 
 Testes - Testar que os utilizadores não administrador não conseguem ter acesso às ferramentas do administrador. 
 
-O administrador deve ter as mesmas capacidades que um utilizador registado mais a capacidade de poder suspender e banir utilizadores com conta e pode eliminar publicações.
+O administrador deve ter as mesmas capacidades que um utilizador subscrito mais a capacidade de poder suspender e banir utilizadores com conta e pode eliminar publicações.
 User Story - Como administrador, quero ter acesso a todas as funcionalidades da aplicação e dispor de ferramentas de moderação, para garantir a segurança da comunidade e executar a minha função de moderação.
-DoD - O perfil de administrador dispõe de todas as permissões que um utilizador registado subscrito dispõe; A interface do administrador dispõe das ferramentas de moderação.
+DoD - O perfil de administrador dispõe de todas as permissões que um utilizador subscrito dispõe; A interface do administrador dispõe das ferramentas de moderação.
 Testes - Testar o funcionamento das ferramentas do administrador em publicações e contas de utilizadores, criadas para este propósito.
 
 O utilizador registado deve dispor de um perfil onde consiga ver o conteúdo que publicou e o seu histórico de interações com outras publicações.
