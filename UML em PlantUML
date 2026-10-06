@@ -190,5 +190,18 @@ UC11 .> UC12b : <<extend>>
 UC15 .> UC14 : <<extend>>
 UC24 .> UC23 : <<extend>>
 
+' ===== NOTA: REQUISITOS NÃO-FUNCIONAIS =====
+note bottom of Admin
+  **Requisitos não-funcionais**
+  - Conformidade com o RGPD
+  - Acessibilidade para todos os utilizadores
+  - Tempo de resposta < 15 s
+  - Encriptação de dados pessoais e autenticação
+  - Código de fácil manutenção
+  - Web: Chrome, Opera GX, Brave, Firefox, Edge
+  - RBAC
+  - Persistência dos dados das contas
+  - Interoperabilidade com o sistema SIBS
+end note
 
 @enduml
