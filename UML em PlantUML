@@ -1,202 +1,181 @@
 # Diagrama de Casos de Uso
 
 @startuml
-title Diagrama de Casos de Uso
+title Diagrama de Casos de Uso - Plataforma
 left to right direction
 skinparam packageStyle rectangle
 skinparam actorStyle awesome
 
 ' ===== ATORES =====
-actor "Utilizador\nConvidado" as Convidado
-actor "Utilizador\nRegistado" as Registado
-actor "Utilizador\nSubscrito" as Subscrito
+actor "Convidado" as Convidado
+actor "Registado" as Registado
+actor "Subscrito" as Subscrito
 actor "Administrador" as Admin
-actor "SIBS\n(MB Way / Multibanco)" as SIBS <<sistema externo>>
-actor "Serviço de Email" as Email <<sistema externo>>
+actor "Administrador\nde grupo" as AdminGrupo
+actor "Serviço de email\n<<externo>>" as Email
+actor "SIBS\n<<externo>>" as SIBS
 
 ' ===== HERANÇA DE PAPÉIS (RBAC) =====
 Convidado <|-- Registado
 Registado <|-- Subscrito
 Subscrito <|-- Admin
+Subscrito <|-- AdminGrupo
 
 rectangle "Plataforma" {
 
-  ' ---------- ACESSO E CONTA ----------
-  package "Acesso e Conta" {
+  package "Acesso e conta" {
     usecase "Navegar sem conta" as UC01
-    usecase "Criar conta" as UC02
-    usecase "Validar dados e\nencriptar palavra-chave" as UC02a
-    usecase "Enviar email de confirmação" as UC02b
-    usecase "Iniciar sessão" as UC03
-    usecase "Bloquear temporariamente após\nX tentativas falhadas" as UC03a
-    usecase "Recusar login de conta\nsuspensa/banida (com motivo)" as UC03b
-    usecase "Recuperar acesso à conta" as UC04
-    usecase "Enviar email com token temporário" as UC04a
-    usecase "Redefinir palavra-chave" as UC04b
-    usecase "Eliminar conta" as UC05
-    usecase "Confirmar com palavra-chave" as UC05a
-    usecase "Terminar sessão" as UC06
+    usecase "Gerir consentimento\nde cookies" as UC02
+    usecase "Criar conta" as UC03
+    usecase "Iniciar sessão" as UC04
+    usecase "Terminar sessão" as UC05
+    usecase "Solicitar recuperação\nde acesso" as UC06
+    usecase "Redefinir\npalavra-chave" as UC07
+    usecase "Eliminar conta" as UC08
   }
 
-  ' ---------- PERFIL E DEFINIÇÕES ----------
-  package "Perfil e Definições" {
-    usecase "Consultar perfil pessoal\n(publicações, comentários,\nfavoritos, downloads)" as UC07
-    usecase "Gerir definições" as UC08
-    usecase "Gerir conta e dados pessoais" as UC08a
-    usecase "Gerir permissões (cookies)" as UC08b
-    usecase "Gerir notificações\n(push, email, internas)" as UC08c
-    usecase "Gerir acessibilidade" as UC08d
-    usecase "Gerir subscrição" as UC08e
+  package "Perfil e definições" {
+    usecase "Consultar perfil pessoal" as UC10
+    usecase "Gerir favoritos" as UC11
+    usecase "Consultar notificações" as UC12
+    usecase "Consultar feed" as UC13
+    usecase "Gerir dados da conta" as UC14
+    usecase "Gerir preferências\nde notificações" as UC15
+    usecase "Gerir acessibilidade" as UC16
+    usecase "Consultar subscrição" as UC17
   }
 
-  ' ---------- CONTEÚDO ----------
-  package "Conteúdo e Interação" {
-    usecase "Visualizar publicações\ne comentários" as UC09
-    usecase "Pesquisar publicações\ne utilizadores" as UC10
-    usecase "Filtrar por tag" as UC11
-    usecase "Publicar conteúdo\n(texto, imagem, vídeo,\nmúsica, documento)" as UC12
-    usecase "Validar tipo e tamanho\ndo ficheiro" as UC12a
-    usecase "Associar tags (mín. 1)" as UC12b
-    usecase "Alterar/eliminar própria\npublicação ou comentário" as UC13
-    usecase "Comentar publicação" as UC14
-    usecase "Responder a comentário\n(encadeado)" as UC15
-    usecase "Gerir favoritos" as UC16
-    usecase "Denunciar publicação" as UC17
-    usecase "Receber notificações\nin-app" as UC18
-    usecase "Receber feed reativo\n(sugestões)" as UC19
+  package "Conteúdo e interação" {
+    usecase "Visualizar publicações" as UC20
+    usecase "Pesquisar na plataforma" as UC21
+    usecase "Filtrar por tag" as UC22
+    usecase "Publicar conteúdo" as UC23
+    usecase "Associar tags (mínimo 1)" as UC24
+    usecase "Alterar o próprio conteúdo" as UC25
+    usecase "Eliminar o próprio conteúdo" as UC26
+    usecase "Comentar publicação" as UC27
+    usecase "Responder a comentário" as UC28
+    usecase "Denunciar publicação" as UC29
   }
 
-  ' ---------- SUBSCRIÇÃO ----------
-  package "Subscrição e Pagamentos" {
-    usecase "Subscrever a aplicação" as UC20
-    usecase "Escolher método de pagamento" as UC21
-    usecase "Processar pagamento" as UC21a
-    usecase "Cancelar subscrição" as UC22
-    usecase "Fazer download de conteúdo" as UC23
-    usecase "Aceder a conteúdo offline" as UC24
+  package "Subscrição e pagamentos" {
+    usecase "Subscrever à aplicação" as UC30
+    usecase "Escolher método\nde pagamento" as UC31
+    usecase "Processar pagamento" as UC32
+    usecase "Cancelar subscrição" as UC33
+    usecase "Fazer download\nde conteúdo" as UC34
+    usecase "Aceder a conteúdo offline" as UC35
   }
 
-  ' ---------- MÚSICA ----------
   package "Música" {
-    usecase "Usar leitor de música integrado" as UC25
-    usecase "Criar/editar/eliminar playlists" as UC26
-    usecase "Reproduzir playlist\n(sequencial ou aleatória)" as UC27
-    usecase "Sugerir música de fundo\nou livro (por tags)" as UC28
-    usecase "Aceitar/rejeitar sugestão" as UC28a
+    usecase "Usar leitor de música\nintegrado" as UC40
+    usecase "Gerir playlists" as UC41
+    usecase "Reproduzir playlist" as UC42
+    usecase "Aceitar sugestão\nde música/livro" as UC43
+    usecase "Rejeitar sugestão\nde música/livro" as UC44
   }
 
-  ' ---------- COMUNIDADE ----------
   package "Comunidade" {
-    usecase "Criar e gerir grupos/comunidades" as UC29
-    usecase "Gerir membros e pedidos de adesão" as UC29a
-    usecase "Publicar no fórum do grupo" as UC29b
-    usecase "Enviar/receber mensagens diretas" as UC30
-    usecase "Editar mensagem (até 5 min)" as UC30a
+    usecase "Criar grupo" as UC50
+    usecase "Pedir adesão a grupo" as UC51
+    usecase "Publicar no fórum\ndo grupo" as UC52
+    usecase "Enviar mensagem direta" as UC53
+    usecase "Editar mensagem\n(até 5 min)" as UC54
+    usecase "Consultar conversas" as UC55
+    usecase "Aprovar pedido\nde adesão" as UC56
+    usecase "Remover membro\ndo grupo" as UC57
+    usecase "Alterar definições\ndo grupo" as UC58
   }
 
-  ' ---------- MODERAÇÃO ----------
-  package "Moderação (Administração)" {
-    usecase "Aceder ao painel de moderação" as UC31
-    usecase "Rever denúncias\n(agrupadas por nº)" as UC32
-    usecase "Ignorar denúncia" as UC32a
-    usecase "Eliminar publicação" as UC33
-    usecase "Suspender utilizador\n(temporário)" as UC34
-    usecase "Banir utilizador\n(permanente)" as UC35
-    usecase "Terminar sessão do\nutilizador afetado" as UC35a
+  package "Moderação" {
+    usecase "Rever denúncias\n(agrupadas por nº)" as UC60
+    usecase "Ignorar denúncia" as UC61
+    usecase "Eliminar publicação" as UC62
+    usecase "Suspender utilizador" as UC63
+    usecase "Banir utilizador" as UC64
   }
 }
 
-' ===== ASSOCIAÇÕES: CONVIDADO =====
+' ===== CONVIDADO =====
 Convidado --> UC01
 Convidado --> UC02
-Convidado --> UC09
-Convidado --> UC10
-Convidado --> UC11
+Convidado --> UC03
+Convidado --> UC20
+Convidado --> UC21
+Convidado --> UC22
 
-' ===== ASSOCIAÇÕES: REGISTADO =====
-Registado --> UC03
+' ===== REGISTADO (herdado por Subscrito, Admin e AdminGrupo) =====
 Registado --> UC04
 Registado --> UC05
 Registado --> UC06
 Registado --> UC07
 Registado --> UC08
+Registado --> UC10
+Registado --> UC11
 Registado --> UC12
 Registado --> UC13
 Registado --> UC14
 Registado --> UC15
 Registado --> UC16
 Registado --> UC17
-Registado --> UC18
-Registado --> UC19
-Registado --> UC20
+Registado --> UC23
+Registado --> UC25
+Registado --> UC26
+Registado --> UC27
+Registado --> UC28
+Registado --> UC29
+Registado --> UC30
 
-' ===== ASSOCIAÇÕES: SUBSCRITO =====
-Subscrito --> UC22
-Subscrito --> UC23
-Subscrito --> UC24
-Subscrito --> UC25
-Subscrito --> UC26
-Subscrito --> UC27
-Subscrito --> UC28
-Subscrito --> UC29
-Subscrito --> UC30
+' ===== SUBSCRITO (herdado por Admin e AdminGrupo) =====
+Subscrito --> UC33
+Subscrito --> UC34
+Subscrito --> UC35
+Subscrito --> UC40
+Subscrito --> UC41
+Subscrito --> UC42
+Subscrito --> UC43
+Subscrito --> UC44
+Subscrito --> UC50
+Subscrito --> UC51
+Subscrito --> UC52
+Subscrito --> UC53
+Subscrito --> UC54
+Subscrito --> UC55
 
-' ===== ASSOCIAÇÕES: ADMIN =====
-Admin --> UC31
-Admin --> UC32
-Admin --> UC33
-Admin --> UC34
-Admin --> UC35
+' ===== ADMINISTRADOR DE GRUPO =====
+AdminGrupo --> UC56
+AdminGrupo --> UC57
+AdminGrupo --> UC58
+
+' ===== ADMINISTRADOR (só o que é exclusivo) =====
+Admin --> UC60
+Admin --> UC62
+Admin --> UC63
+Admin --> UC64
 
 ' ===== ATORES EXTERNOS =====
-UC02b --> Email
-UC04a --> Email
-UC21a --> SIBS
+UC03 -- Email
+UC06 -- Email
+UC32 -- SIBS
 
 ' ===== INCLUDE =====
-UC02 ..> UC02a : <<include>>
-UC02 ..> UC02b : <<include>>
-UC04 ..> UC04a : <<include>>
-UC04 ..> UC04b : <<include>>
-UC05 ..> UC05a : <<include>>
-UC05 ..> UC06 : <<include>>
-UC08 ..> UC08a : <<include>>
-UC08 ..> UC08b : <<include>>
-UC08 ..> UC08c : <<include>>
-UC08 ..> UC08d : <<include>>
-UC08 ..> UC08e : <<include>>
-UC12 ..> UC12a : <<include>>
-UC12 ..> UC12b : <<include>>
-UC20 ..> UC21 : <<include>>
-UC21 ..> UC21a : <<include>>
-UC26 ..> UC27 : <<include>>
-UC29 ..> UC29a : <<include>>
-UC29 ..> UC29b : <<include>>
-UC30 ..> UC30a : <<include>>
-UC32 ..> UC31 : <<include>>
-UC35 ..> UC35a : <<include>>
-UC34 ..> UC35a : <<include>>
-UC08e ..> UC22 : <<include>>
+UC23 ..> UC24 : <<include>>
+UC30 ..> UC31 : <<include>>
+UC30 ..> UC32 : <<include>>
 
 ' ===== EXTEND =====
-UC03a .> UC03 : <<extend>>
-UC03b .> UC03 : <<extend>>
-UC28a .> UC28 : <<extend>>
-UC32a .> UC32 : <<extend>>
-UC33 .> UC32 : <<extend>>
-UC34 .> UC32 : <<extend>>
-UC35 .> UC32 : <<extend>>
-UC11 .> UC12b : <<extend>>
-UC15 .> UC14 : <<extend>>
-UC24 .> UC23 : <<extend>>
+UC61 ..> UC60 : <<extend>>
+UC62 ..> UC60 : <<extend>>
+UC63 ..> UC60 : <<extend>>
+UC64 ..> UC60 : <<extend>>
 
-' ===== NOTA: REQUISITOS NÃO-FUNCIONAIS =====
 note bottom of Admin
   **Requisitos não-funcionais**
   - Conformidade com o RGPD
   - Acessibilidade para todos os utilizadores
   - Tempo de resposta < 15 s
-  - Encriptação de dados pessoais e autenticação
+  - Encriptação dos dados pessoais e de autenticação
+    (palavras-chave guardadas com hash)
   - Código de fácil manutenção
   - Web: Chrome, Opera GX, Brave, Firefox, Edge
   - RBAC
