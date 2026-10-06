@@ -17,7 +17,7 @@ actor "Serviço de Email" as Email <<sistema externo>>
 ' ===== HERANÇA DE PAPÉIS (RBAC) =====
 Convidado <|-- Registado
 Registado <|-- Subscrito
-Registado <|-- Admin
+Subscrito <|-- Admin
 
 rectangle "Plataforma" {
 
