@@ -1,9 +1,9 @@
 # Diagrama de Casos de Uso
 
 @startuml
-title Diagrama de Casos de Uso - Plataforma
+title Diagrama de Casos de Uso - ExploraART
 left to right direction
-skinparam packageStyle rectangle
+skinparam packageStyle folder
 skinparam actorStyle awesome
 
 ' ===== ATORES =====
@@ -21,79 +21,97 @@ Registado <|-- Subscrito
 Subscrito <|-- Admin
 Subscrito <|-- AdminGrupo
 
-rectangle "Plataforma" {
-
-  package "Acesso e conta" {
-    usecase "Navegar sem conta" as UC01
-    usecase "Gerir consentimento\nde cookies" as UC02
-    usecase "Criar conta" as UC03
-    usecase "Iniciar sessão" as UC04
-    usecase "Terminar sessão" as UC05
-    usecase "Solicitar recuperação\nde acesso" as UC06
-    usecase "Redefinir\npalavra-chave" as UC07
-    usecase "Eliminar conta" as UC08
+' ===== SISTEMA PRINCIPAL: os pacotes são representados como packages =====
+rectangle "Sistema ExploraART" {
+  package "Acesso e conta" as PK_ACE {
   }
-
-  package "Perfil e definições" {
-    usecase "Consultar perfil pessoal" as UC10
-    usecase "Gerir favoritos" as UC11
-    usecase "Consultar notificações" as UC12
-    usecase "Consultar feed" as UC13
-    usecase "Gerir dados da conta" as UC14
-    usecase "Gerir preferências\nde notificações" as UC15
-    usecase "Gerir acessibilidade" as UC16
-    usecase "Consultar subscrição" as UC17
+  package "Perfil e definições" as PK_PER {
   }
-
-  package "Conteúdo e interação" {
-    usecase "Visualizar publicações" as UC20
-    usecase "Pesquisar na plataforma" as UC21
-    usecase "Filtrar por tag" as UC22
-    usecase "Publicar conteúdo" as UC23
-    usecase "Associar tags (mínimo 1)" as UC24
-    usecase "Alterar o próprio conteúdo" as UC25
-    usecase "Eliminar o próprio conteúdo" as UC26
-    usecase "Comentar publicação" as UC27
-    usecase "Responder a comentário" as UC28
-    usecase "Denunciar publicação" as UC29
+  package "Conteúdo e interação" as PK_CON {
   }
-
-  package "Subscrição e pagamentos" {
-    usecase "Subscrever à aplicação" as UC30
-    usecase "Escolher método\nde pagamento" as UC31
-    usecase "Processar pagamento" as UC32
-    usecase "Cancelar subscrição" as UC33
-    usecase "Fazer download\nde conteúdo" as UC34
-    usecase "Aceder a conteúdo offline" as UC35
+  package "Subscrição e pagamentos" as PK_SUB {
   }
-
-  package "Música" {
-    usecase "Usar leitor de música\nintegrado" as UC40
-    usecase "Gerir playlists" as UC41
-    usecase "Reproduzir playlist" as UC42
-    usecase "Aceitar sugestão\nde música/livro" as UC43
-    usecase "Rejeitar sugestão\nde música/livro" as UC44
+  package "Música" as PK_MUS {
   }
-
-  package "Comunidade" {
-    usecase "Criar grupo" as UC50
-    usecase "Pedir adesão a grupo" as UC51
-    usecase "Publicar no fórum\ndo grupo" as UC52
-    usecase "Enviar mensagem direta" as UC53
-    usecase "Editar mensagem\n(até 5 min)" as UC54
-    usecase "Consultar conversas" as UC55
-    usecase "Aprovar pedido\nde adesão" as UC56
-    usecase "Remover membro\ndo grupo" as UC57
-    usecase "Alterar definições\ndo grupo" as UC58
+  package "Comunidade" as PK_COM {
   }
-
-  package "Moderação" {
-    usecase "Rever denúncias\n(agrupadas por nº)" as UC60
-    usecase "Ignorar denúncia" as UC61
-    usecase "Eliminar publicação" as UC62
-    usecase "Suspender utilizador" as UC63
-    usecase "Banir utilizador" as UC64
+  package "Moderação" as PK_MOD {
   }
+}
+
+' ===== PACOTES DETALHADOS COMO SISTEMAS INDIVIDUAIS (mesmo nome do pacote) =====
+
+rectangle "Acesso e conta" as SYS_ACE {
+  usecase "Navegar sem conta" as UC01
+  usecase "Gerir consentimento\nde cookies" as UC02
+  usecase "Criar conta" as UC03
+  usecase "Iniciar sessão" as UC04
+  usecase "Terminar sessão" as UC05
+  usecase "Solicitar recuperação\nde acesso" as UC06
+  usecase "Redefinir\npalavra-chave" as UC07
+  usecase "Eliminar conta" as UC08
+}
+
+rectangle "Perfil e definições" as SYS_PER {
+  usecase "Consultar perfil pessoal" as UC10
+  usecase "Gerir favoritos" as UC11
+  usecase "Consultar notificações" as UC12
+  usecase "Consultar feed" as UC13
+  usecase "Gerir dados da conta" as UC14
+  usecase "Gerir preferências\nde notificações" as UC15
+  usecase "Gerir acessibilidade" as UC16
+  usecase "Consultar subscrição" as UC17
+}
+
+rectangle "Conteúdo e interação" as SYS_CON {
+  usecase "Visualizar publicações" as UC20
+  usecase "Pesquisar na plataforma" as UC21
+  usecase "Filtrar por tag" as UC22
+  usecase "Publicar conteúdo" as UC23
+  usecase "Associar tags (mínimo 1)" as UC24
+  usecase "Alterar o próprio conteúdo" as UC25
+  usecase "Eliminar o próprio conteúdo" as UC26
+  usecase "Comentar publicação" as UC27
+  usecase "Responder a comentário" as UC28
+  usecase "Denunciar publicação" as UC29
+}
+
+rectangle "Subscrição e pagamentos" as SYS_SUB {
+  usecase "Subscrever à aplicação" as UC30
+  usecase "Escolher método\nde pagamento" as UC31
+  usecase "Verificar\npagamento" as UC36
+  usecase "Processar pagamento" as UC32
+  usecase "Cancelar subscrição" as UC33
+  usecase "Fazer download\nde conteúdo" as UC34
+  usecase "Aceder a conteúdo offline" as UC35
+}
+
+rectangle "Música" as SYS_MUS {
+  usecase "Usar leitor de música\nintegrado" as UC40
+  usecase "Gerir playlists" as UC41
+  usecase "Reproduzir playlist" as UC42
+  usecase "Aceitar sugestão\nde música/livro" as UC43
+  usecase "Rejeitar sugestão\nde música/livro" as UC44
+}
+
+rectangle "Comunidade" as SYS_COM {
+  usecase "Criar grupo" as UC50
+  usecase "Pedir adesão a grupo" as UC51
+  usecase "Publicar no fórum\ndo grupo" as UC52
+  usecase "Enviar mensagem direta" as UC53
+  usecase "Editar mensagem\n(até 5 min)" as UC54
+  usecase "Consultar conversas" as UC55
+  usecase "Aprovar pedido\nde adesão" as UC56
+  usecase "Remover membro\ndo grupo" as UC57
+  usecase "Alterar definições\ndo grupo" as UC58
+}
+
+rectangle "Moderação" as SYS_MOD {
+  usecase "Rever denúncias\n(agrupadas por nº)" as UC60
+  usecase "Ignorar denúncia" as UC61
+  usecase "Eliminar publicação" as UC62
+  usecase "Suspender utilizador" as UC63
+  usecase "Banir utilizador" as UC64
 }
 
 ' ===== CONVIDADO =====
@@ -147,11 +165,8 @@ AdminGrupo --> UC56
 AdminGrupo --> UC57
 AdminGrupo --> UC58
 
-' ===== ADMINISTRADOR (só o que é exclusivo) =====
+' ===== ADMINISTRADOR (as restantes ações de moderação são extensões de UC60) =====
 Admin --> UC60
-Admin --> UC62
-Admin --> UC63
-Admin --> UC64
 
 ' ===== ATORES EXTERNOS =====
 UC03 -- Email
@@ -161,7 +176,8 @@ UC32 -- SIBS
 ' ===== INCLUDE =====
 UC23 ..> UC24 : <<include>>
 UC30 ..> UC31 : <<include>>
-UC30 ..> UC32 : <<include>>
+UC31 ..> UC36 : <<include>>
+UC36 ..> UC32 : <<include>>
 
 ' ===== EXTEND =====
 UC61 ..> UC60 : <<extend>>
@@ -184,4 +200,3 @@ note bottom of Admin
 end note
 
 @enduml
-
