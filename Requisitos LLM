@@ -2,8 +2,9 @@
 
 + A plataforma web deve ser desenvolvida em HTML5
 + A base de dados deve ser criada e mantida em MySQL
-+ A ligção entre página web e base de dados deve ser realizada em Python
++ A ligção entre página web e base de dados deve ser realizada em Python versão 3.13.3
 + O código em Python deve utilizar snake_case para a denominação dos atributos
++ O Framework utilizado é o flask, versão 3.1.3
 
 # Requisitos do projeto
 
