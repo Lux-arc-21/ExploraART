@@ -34,7 +34,7 @@ Testes - Confirmar se a conta foi eliminada  fechada; Verificar se os dados fora
 
 O sistema deve permitir a diferença entre um utilizador registado e um administrador.
 User Story - Como administrador, quero que exista uma diferenciação entre o perfil de utilizador e de administrador, para garantir a segurança e integridade da plataforma.
-DoD - Sistema de permissões baseado em papeis (BRAC) implementado; A interface do administrador dispõe de ferramentas de moderação. 
+DoD - Sistema de permissões baseado em papeis (RBAC) implementado; A interface do administrador dispõe de ferramentas de moderação. 
 Testes - Testar que os utilizadores não administrador não conseguem ter acesso às ferramentas do administrador. 
 
 O administrador deve ter as mesmas capacidades que um utilizador subscrito mais a capacidade de poder suspender e banir utilizadores com conta e pode eliminar publicações.
