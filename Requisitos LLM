@@ -1,58 +1,89 @@
-# Regras de geração de cóigo
+# Regras de geração de código
 
 + A plataforma web deve ser desenvolvida em HTML5
 + A base de dados deve ser criada e mantida em MySQL
-+ A ligção entre página web e base de dados deve ser realizada em Python versão 3.13.3
-+ O código em Python deve utilizar snake_case para a denominação das variáveis
-+ A linguagem do código deve ser em português
-+ O Framework utilizado é o flask, versão 3.1.3
-+ Testes devem ser uaotmáticos
++ A ligação entre página web e base de dados deve ser realizada em Python versão 3.13.3
++ O Framework utilizado é o Flask, versão 3.1.3
++ O código em Python deve utilizar snake_case para a denominação de variáveis, funções, parâmetros e colunas da base de dados. As rotas e as classes CSS mantêm hífenes (D45)
++ Os identificadores (variáveis, funções, tabelas e colunas) ficam em português (D46)
++ O JavaScript é simples, sem frameworks (D22)
++ O código Python segue a PEP 8 e está organizado por módulos (D44)
++ Os testes são manuais, documentados nos DoD, e automáticos com pytest nas funções críticas (D47)
+
+# Glossário
+
++ **Convidado**: utilizador sem sessão iniciada (com ou sem conta)
++ **Registado**: utilizador com conta e sessão iniciada
++ **Subscrito**: registado com subscrição ativa
++ **Administrador**: subscrito com ferramentas de moderação
++ **Administrador de comunidade**: papel ao nível de uma comunidade, não global
++ **Feed**: página principal com as publicações, e página inicial depois do login
++ **Perfil**: página pessoal do utilizador, com atalho para as Definições
++ **Página de utilizador**: versão pública do perfil de outro utilizador
++ **Definições**: separador único de gestão da conta
++ **Comunidades**: termo usado em toda a documentação e interface
+
+# Papéis e permissões
+
+| Funcionalidade | Convidado | Registado | Subscrito | Administrador |
+|---|---|---|---|---|
+| Navegar, ver publicações, pesquisar, filtrar por tag, ver páginas de utilizador | Sim | Sim | Sim | Sim |
+| Criar conta, confirmar email, recuperar acesso | Sim | Não | Não | Não |
+| Publicar, comentar, responder, gostar, favoritos, denunciar | Não | Sim | Sim | Sim |
+| Perfil, definições, notificações, sugestões reativas | Não | Sim | Sim | Sim |
+| Leitor de música, playlists, sugestões de música/livro | Não | Sim | Sim | Sim |
+| Comunidades e mensagens diretas | Não | Sim | Sim | Sim |
+| Subscrever | Não | Sim | (já subscrito) | Sim |
+| Download, acesso offline, cancelar subscrição | Não | Não | Sim | Sim |
+| Rever denúncias, suspender, banir, eliminar publicações | Não | Não | Não | Sim |
+
+O administrador de uma comunidade (aprovar pedidos, remover membros, alterar definições) é um papel dentro de cada comunidade, atribuído a um registado.
 
 # Requisitos do projeto
 
 ## Requisitos Não Funcionais
 
-- Conformidade com a RGPD.
-- Acessibilidade para todos os utilizadores.
-- Tempo de resposta rápido, menos de 15 segundos.
-- Encriptação dos dados pessoais e métodos e autenticação.
-- Código com fácil manutenção. 
-- Página web
-- Compatível com os browsers Google Chrome, Opera GX, Brave, Mozilla Firefox e Microsoft Edge
-- RBAC
-- Garantir a persistência dos dados das contas dos utilizadores
-- Interoperabilidade  com o sistema SIBS
+- Conformidade com o RGPD: aceitação dos termos de serviço e da política de privacidade no registo, exportação dos dados pessoais pelo utilizador, consentimento para o feed personalizado e banner de consentimento de cookies (D39).
+- Acessibilidade para todos os utilizadores, segundo a WCAG 2.1 nível AA (D40).
+- Tempo de resposta rápido: páginas em menos de 3 segundos e ações em menos de 15 segundos; uploads e downloads excluídos (D42).
+- Hash das palavras-chave e HTTPS na comunicação. Os restantes dados pessoais não são encriptados campo a campo (D41).
+- Código com fácil manutenção: PEP 8, módulos e comentários (D44).
+- Página web, instalável como PWA (D13).
+- Compatível com as versões atuais dos browsers Google Chrome, Opera GX, Brave, Mozilla Firefox e Microsoft Edge, com design responsivo para telemóvel (D43).
+- RBAC (controlo de acessos por papéis).
+- Garantir a persistência dos dados das contas dos utilizadores, com cópias de segurança regulares da base de dados (D44).
+- Interoperabilidade com o sistema SIBS. A integração é simulada, com a interface pronta para a integração real (D16).
 
-## Requisitos Funcionais 
-- O sistema deve permitir entrar na aplicação sem uma conta previamente criada.
-- O sistema deve permitir aos utilizadores convidados criar uma conta.
-- O sistema deve permitir que uma conta seja suspensa ou banida.
-- O utilizador deve ser capaz de iniciar sessão com o nome de utilizador e palavra-chave utilizados na criação da sua conta.
-- Um utilizador registado deve poder recuperar o acesso à sua conta por meio de um formulário acessível no menu de login.
-- Um utilizador registado deve ter a opção de eliminar a sua conta.
-- O sistema deve permitir a diferença entre um utilizador registado e um administrador.
-- O administrador deve ter as mesmas capacidades que um utilizador registado mais a capacidade de poder suspender e banir utilizadores com conta e pode eliminar publicações.
-- O utilizador registado deve dispor de um perfil onde consiga ver o conteúdo que publicou e o seu histórico de interações com outras publicações.
-- Um utilizador registado deve poder criar uma lista de favoritos onde este pode guardar as suas publicações favoritas para visualizar e interagir com elas mais tarde, tal como eliminar as mesmas publicações dos favoritos sempre que quiser..
-- Os utilizadores registados devem ter a capacidade de publicar conteúdos próprios, textuais, musicais, visuais (imagens e vídeo) ou documentos.
-- Os conteúdos publicados devem se subdividir no elemento publicado pelo autor que pode consistir em texto e numa imagem, vídeo, música ou documento. E nos comentários onde qualquer utilizador da aplicação com conta pode comentar o conteúdo.
-- Qualquer utilizador registado deve poder responder a um comentário numa publicação.
-- Qualquer utilizador deve ter a opção de pesquisar por publicações dentro da aplicação.
-- Um utilizador registado deve poder ser capaz de subscrever-se à aplicação.
-- O utilizador deve poder escolher o método de pagamento, sendo as opções MB Way ou Multibanco.
-- Um utilizador registado e com subscrição ativa deve ter a capacidade de cancelar a sua subscrição.
-- Um utilizador com subscrição ativa deve poder ter a capacidade de fazer download de qualquer conteúdo publicado na aplicação.
-- Um utilizador com subscrição ativa deve ter acesso offline aos conteúdos que fez download.
-- Qualquer utilizador registado pode denunciar determinada publicação por incumprimento dos termos de serviço.
-- Uma publicação sinalizada por meio de denúncia deve ser revista por um administrador.
-- Um utilizador registado deve receber notificações, na aplicação, sempre que haja interações com uma das suas publicações.
-- Um utilizador registado deve receber sugestões reativas com base nos conteúdos por ele consumidos.
-- A aplicação deve possuir um separador destinado as definições onde o utilizador pode gerir a sua conta, permissões, notificações, opções de acessibilidade, subscrição
-- Os utilizadores registados devem poder alterar ou eliminar as suas próprias publicações e comentários
-- O sistema deve permitir sugerir música durante a leitura de um livro, servindo como música de fundo, vice versa. 
-- O sistema deve permitir que todos os conteúdos sejam descritos com tags, devendo dispor de pelo menos um.
-- O sistema deve dispor de um leitor de música integrado 
-- O sistema deve permitir a criação de playlists.
-- O sistema deve permitir a criação e gestão de grupos e comunidades, criadas pelos próprios utilizadores.
-- O sistema deve permitir mensagens diretas entre utilizadores.
+## Requisitos Funcionais
 
+1. O sistema deve permitir entrar na aplicação sem uma conta previamente criada.
+2. O sistema deve permitir aos utilizadores convidados criar uma conta, confirmando o email.
+3. O sistema deve permitir que uma conta seja suspensa (com data de fim) ou banida, com motivo obrigatório.
+4. O utilizador deve ser capaz de iniciar sessão com o nome de utilizador (ou email) e a palavra-chave utilizados na criação da sua conta.
+5. Um utilizador registado deve poder recuperar o acesso à sua conta por meio de um formulário acessível no menu de login.
+6. Um utilizador registado deve ter a opção de eliminar a sua conta, nas Definições.
+7. O sistema deve permitir a diferença entre um utilizador registado, um subscrito e um administrador.
+8. O administrador deve ter as mesmas capacidades que um utilizador subscrito, mais a capacidade de suspender e banir utilizadores com conta (exceto outros administradores) e de eliminar publicações, diretamente ou a partir das denúncias.
+9. O utilizador registado deve dispor de um perfil onde consiga ver o conteúdo que publicou e o seu histórico de interações com outras publicações.
+10. Um utilizador registado deve poder criar uma lista de favoritos onde guarda as publicações para ver mais tarde, podendo removê-las quando quiser.
+11. Os utilizadores registados devem poder publicar conteúdos próprios, textuais, musicais, visuais (imagens e vídeo) ou documentos, com pelo menos uma tag.
+12. Os conteúdos publicados dividem-se no elemento publicado pelo autor (texto e, opcionalmente, uma imagem, vídeo, música ou documento) e nos comentários, onde qualquer utilizador com conta pode comentar. Qualquer registado pode gostar de uma publicação.
+13. Qualquer utilizador registado deve poder responder a um comentário numa publicação, sem limite de profundidade.
+14. Qualquer utilizador deve ter a opção de pesquisar por publicações e por utilizadores dentro da aplicação.
+15. Um utilizador registado deve poder subscrever-se à aplicação (plano mensal único, com preço configurável).
+16. O utilizador deve poder escolher o método de pagamento (MB Way ou Multibanco), com renovação automática nos dois métodos.
+17. Um utilizador registado com subscrição ativa deve poder cancelar a sua subscrição.
+18. Um utilizador com subscrição ativa deve poder fazer download de qualquer publicação com ficheiro (imagem, vídeo, música ou PDF).
+19. Um utilizador com subscrição ativa deve ter acesso offline aos conteúdos que descarregou. Quando a subscrição termina, o conteúdo offline deixa de abrir e a lista de downloads mantém-se.
+20. Qualquer utilizador registado pode denunciar uma publicação por incumprimento dos termos de serviço, uma só vez por publicação.
+21. Uma publicação denunciada deve ser revista por um administrador.
+22. Um utilizador registado deve receber notificações (internas, por email e push) sempre que haja interações com uma das suas publicações.
+23. Um utilizador registado deve receber sugestões reativas no feed com base nos conteúdos que consome, mediante o seu consentimento.
+24. A aplicação deve possuir um separador de Definições onde o utilizador gere a conta, as permissões, as notificações, a acessibilidade, a subscrição e a privacidade.
+25. Os utilizadores registados devem poder alterar ou eliminar as suas próprias publicações e comentários.
+26. O sistema deve sugerir música durante a leitura de um livro (PDF) e vice-versa, servindo como música de fundo.
+27. O sistema deve permitir que todos os conteúdos sejam descritos com tags, devendo dispor de pelo menos uma.
+28. O sistema deve dispor de um leitor de música integrado, que continua a tocar durante a navegação.
+29. O sistema deve permitir a criação de playlists.
+30. O sistema deve permitir a criação e gestão de comunidades, públicas ou privadas, criadas pelos próprios utilizadores.
+31. O sistema deve permitir mensagens diretas entre utilizadores registados.
