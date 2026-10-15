@@ -1,158 +1,575 @@
-# Requisitos Funcionais, User Stories, DoD e Testes 
+# Requisitos Funcionais, User Stories, DoD e Testes
 
-##Requisitos Funcionais, User Story, DoD e Testes.
+## 1. Entrar sem conta
 
-O sistema deve permitir entrar na aplicação sem uma conta previamente criada.
-User Story - Como Utilizador convidado, quero poder entrar na aplicação sem conta, para que tenha acesso ao conteúdo da aplicação
-DoD - O utilizador convidado consegue navegar na aplicação e visualizar os conteúdos; Ações restritas a um utilizador registado provocam que o utilizador convidado seja redirecionado para a página de login. 
-Testes - Navegar na aplicação sem uma conta; Tentar utilizar as funcionalidades disponíveis apenas a utilizadores registados.
+**Requisito:** O sistema deve permitir entrar na aplicação sem uma conta previamente criada.
 
-O sistema deve permitir aos utilizadores convidados criar uma conta.
-User Story - Como utilizador convidado, quero poder criar uma conta, para que tenha acesso às funcionalidades que os utilizadores com conta têm acesso.
-DoD - Formulário de registo funcional com validação de campos obrigatórios; Validação dos dados introduzidos; Encriptação da palavra-chave; Envio de um email de confirmação.
-Testes - Submeter formulários com dados inválidos; Verificar se os registos foram criados com sucesso na base de dados; Verificar se o email foi recebido com sucesso.
+**User Story:** Como utilizador convidado, quero poder entrar na aplicação sem conta, para ter acesso ao conteúdo da aplicação.
 
-O sistema deve permitir que uma conta seja suspensa ou banida.
-User Story - Como administrador, quero poder suspender temporariamente ou banir permanentemente a conta de um utilizador, para que possa salvaguardar a segurança da plataforma e o cumprimento dos termos de serviço.
-DoD - A interface do administrador dispõe de opções para suspender ou banir determinado utilizador; A aplicação de uma destas opções provoca o logout imediato do utilizador afetado; O utilizador afetado é impedido de fazer login e recebe uma mensagem com o motivo para a ação.
-Testes - Garantir que utilizadores normais não conseguem utilizar as ferramentas; Tentativa de login por uma conta suspensa ou banida; Desbloqueio automático após o fim do período de suspensão temporária.
+**DoD:**
+- O convidado consegue navegar, visualizar conteúdos, pesquisar, filtrar por tag e consultar páginas públicas de utilizador.
+- Ações restritas a utilizadores registados redirecionam o convidado para a página de login.
 
-O utilizador deve ser capaz de iniciar sessão com o nome de utilizador e palavra-chave utilizados na criação da sua conta.
-User Story - Como utilizador, quero ser capaz de aceder à minha conta, para fazer login na minha conta. 
-DoD - Os dados do utilizador são autenticados e redireciona o utilizador para a sua página inicial; Credenciais erradas levam a uma mensagem de erro e ao retorno ao login.
-Testes - Login com credenciais válidas e inválidas; Testar o bloqueio temporário após X tentativas falhadas consecutivas.
+**Testes:**
+- Navegar na aplicação sem conta.
+- Tentar usar as funcionalidades restritas a registados e verificar o redirecionamento para o login.
 
-Um utilizador registado deve poder recuperar o acesso à sua conta por meio de um formulário acessível no menu de login.
-User Story - Como utilizador registado na aplicação, quero poder ser capaz de solicitar a recuperação do acesso à minha conta, para que possa redefinir a minha palavra-chave.
-DoD - Um link na página de login direciona o utilizador para o formulário; Envio de um email com um token temporário, com limite de validade; Um novo formulário permite inserir a nova palavra-chave e esta é guardada e encriptada pelo sistema.
-Testes - Tentar a utilização de um token expirado ou já utilizado; Testar o formulário.
+---
 
-Um utilizador registado deve ter a opção de eliminar a sua conta.
-User Story - Como utilizador registado, quero ter a opção de eliminar a minha conta, para que possa eliminar a minha conta e garantir a remoção dos meus dados pessoais.
-DoD - Opção no perfil do utilizador com um pedido de confirmação do desejo de eliminar a conta e a inserção da palavra-chave; Remoção dos dados do utilizador da base de dados; A sessão do utilizador é automaticamente fechada.
-Testes - Confirmar se a conta foi eliminada  fechada; Verificar se os dados foram removidos corretamente da base de dados e o utilizador não consegue voltar a fazer login. 
+## 2. Criar conta
 
-O sistema deve permitir a diferença entre um utilizador registado e um administrador.
-User Story - Como administrador, quero que exista uma diferenciação entre o perfil de utilizador e de administrador, para garantir a segurança e integridade da plataforma.
-DoD - Sistema de permissões baseado em papeis (RBAC) implementado; A interface do administrador dispõe de ferramentas de moderação. 
-Testes - Testar que os utilizadores não administrador não conseguem ter acesso às ferramentas do administrador. 
+**Requisito:** O sistema deve permitir aos utilizadores convidados criar uma conta, confirmando o email.
 
-O administrador deve ter as mesmas capacidades que um utilizador subscrito mais a capacidade de poder suspender e banir utilizadores com conta e pode eliminar publicações.
-User Story - Como administrador, quero ter acesso a todas as funcionalidades da aplicação e dispor de ferramentas de moderação, para garantir a segurança da comunidade e executar a minha função de moderação.
-DoD - O perfil de administrador dispõe de todas as permissões que um utilizador subscrito dispõe; A interface do administrador dispõe das ferramentas de moderação.
-Testes - Testar o funcionamento das ferramentas do administrador em publicações e contas de utilizadores, criadas para este propósito.
+**User Story:** Como utilizador convidado, quero poder criar uma conta, para ter acesso às funcionalidades dos utilizadores com conta.
 
-O utilizador registado deve dispor de um perfil onde consiga ver o conteúdo que publicou e o seu histórico de interações com outras publicações.
-User Story - Como utilizador registado, quero dispor de uma página pessoal, para consultar todo o conteúdo com o qual interagi. 
-DoD - Perfil pessoal com a existência de separadores para as publicações, comentários, publicações favoritas, downloads e definições; scroll infinito da mesma.
-Testes - Criar publicações e comentários e testar se estes aparecem instantaneamente na página de perfil pessoal; Testar a performance quando a página pessoal tem muitas publicações e comentários.
+**DoD:**
+- Formulário de registo com validação dos campos obrigatórios, feita no servidor.
+- Nome de utilizador com 3 a 50 caracteres (letras, números, ponto, hífen e underscore); email válido; palavra-chave com pelo menos 8 caracteres e confirmação igual (D37).
+- Aceitação obrigatória dos termos de serviço e da política de privacidade (D39).
+- Palavra-chave guardada com hash.
+- Envio de um email de confirmação com link válido durante 24 horas.
+- A conta só inicia sessão depois de o email ser confirmado, com opção de reenviar o email.
 
-Um utilizador registado deve poder criar uma lista de favoritos onde este pode guardar as suas publicações favoritas para visualizar e interagir com elas mais tarde, tal como eliminar as mesmas publicações dos favoritos sempre que quiser..
-User Story - Como utilizador registado, quero ter a opção de criar uma lista de favoritos, para guardar as publicações que gostei e ter acesso a elas mais tarde.
-DoD - Perfil pessoal com um separador para as publicações favoritas guardadas; Ícones para guardar nos favoritos em todas as publicações; Adição e remoção da publicação dos favoritos em tempo real.
-Testes - Testar o funcionamento da adição e remoção das publicações dos favoritos; Verificar se os favoritos se mantêm mesmo após o logout.
+**Testes:**
+- Submeter dados inválidos (cada uma das regras) e sem aceitar os termos.
+- Verificar na base de dados que o registo foi criado, com hash e `email_confirmado` a 0.
+- Verificar que o email foi recebido.
+- Usar o link de confirmação: primeira vez, segunda vez, link expirado e link adulterado.
+- Tentar iniciar sessão antes e depois de confirmar o email.
 
-Os utilizadores registados devem ter a capacidade de publicar conteúdos próprios, textuais, musicais, visuais (imagens e vídeo) ou documentos.
-User Story - Como utilizador registado, quero ter a capacidade de publicar conteúdos próprios. Para partilhar as minhas ideias e criações.
-DoD - Formulário de criação de publicação com os devidos suportes para o upload de ficheiros; Validação no upload para os tipos de ficheiros permitidos e limite de tamanho por ficheiro; Permitir o upload de ficheiros PDF, JPEG, PNG, MP3, MP4. Ficheiros guardados na cloud e ligação registada na base de dados. 
-Testes - Testar o upload dos vários tipos de ficheiros em contextos variados; Testar o funcionamento dos limites de tamanho dos ficheiros. 
+---
 
-Os conteúdos publicados devem se subdividir no elemento publicado pelo autor que pode consistir em texto e numa imagem, vídeo, música ou documento. E nos comentários onde qualquer utilizador da aplicação com conta pode comentar o conteúdo.
-User Story - Como utilizador registado, quero poder visualizar o conteúdo principal da publicação e os comentários, para consumir o conteúdo da publicação e deixar e interagir com os comentários. 
-DoD - Layout visual separado com o autor, texto e multimédia no topo e os comentários no fundo; Botão “responder” para submeter um comentário disponível para todos os utilizadores registados; Clicar na publicação expande a publicação e permite ler todos os seus comentários; Scroll infinito nos comentários quando a publicação se encontra num estado expandido.
-Testes - Verificar se a interface de utilizador funciona e apresenta tudo de forma correta; Verificar o funcionamento da publicação quando no seu estado expandido; Submeter comentários e verificar se estes aparecem no feed.
+## 3. Suspender ou banir contas
 
-Qualquer utilizador registado deve poder responder a um comentário numa publicação.
-User Story - Como utilizador registado, quero poder responder directamente a comentários específicos dentro de uma publicação, para manter discussões encadeadas.
-DoD - Botão “responder” debaixo de todos os comentários; Respostas apresentadas de forma encadeadas sob o comentário pai.
-Testes - Criar respostas diretas a um comentário existente; Verificar se a representação visual dos comentários se apresenta encadeada sob o comentário pai.
+**Requisito:** O sistema deve permitir que uma conta seja suspensa (com data de fim) ou banida, com motivo obrigatório.
 
-Qualquer utilizador deve ter a opção de pesquisar por publicações dentro da aplicação.
-User Story - Como utilizador, quero ter a capacidade de pesquisar por um dado termo ou nome de utilizador, para poder encontrar conteúdo que me represente.
-DoD - Barra de pesquisa funcional no topo da aplicação; Pesquisas com base em keywords;  Resultados divididos num separador para utilizadores e outro para publicações; Existência de um estado para a situação de ausência de resultados.
-Testes - Pesquisar termos parciais e nomes de utilizadores; Pesquisar por resultados que não existem; testar a introdução de caracteres especiais.
+**User Story:** Como administrador, quero poder suspender temporariamente ou banir permanentemente a conta de um utilizador, para salvaguardar a segurança da plataforma e o cumprimento dos termos de serviço.
 
-Um utilizador registado deve poder ser capaz de subscrever-se à aplicação.
-User Story - Como utilizador registado, quero ter a capacidade de me subscrever à aplicação e ser um utilizador pago, para poder ter acesso à capacidade de download de conteúdo.
-DoD - Opção de subscrição na área de gestão de conta; Formulário para a inserção de dados; Alteração do estado do utilizador para subscrito na base de dados; Elemento gráfico à frente da foto de utilizador na página pessoal e em todos os posts.
-Testes - testar a validação da mudança de estado do utilizador; Verificar a presença do elemento gráfico à frente da foto do utilizador. 
+**DoD:**
+- A interface do administrador tem as opções de suspender e banir, aplicáveis diretamente a um utilizador ou a partir do painel de denúncias (D01).
+- Na suspensão, o administrador escolhe a data de fim; o motivo é obrigatório e escrito por ele (D26).
+- Um administrador não pode sancionar outro administrador (D26).
+- A sanção provoca o logout imediato: o estado da conta é verificado em cada pedido (D21).
+- O utilizador afetado não consegue iniciar sessão e vê o motivo (e a data de fim, se for suspensão).
+- A suspensão termina automaticamente na data de fim.
 
-O utilizador deve poder escolher o método de pagamento, sendo as opções MB Way ou Multibanco.
-User Story - Como utilizador registado, quero poder escolher o meu método de pagamento e de subscrição, para ter controlo sobre como pago a mesma.
-DoD - Integração de gateway de pagamentos para MB way e Multibanco
-Testes - Testar o pagamento com os dois tipos de pagamentos.
+**Testes:**
+- Garantir que utilizadores normais não acedem às ferramentas.
+- Suspender um utilizador com sessão ativa e verificar o logout no pedido seguinte.
+- Tentar iniciar sessão com uma conta suspensa e com uma banida, e verificar o motivo mostrado.
+- Verificar o desbloqueio automático depois da data de fim.
+- Tentar sancionar outro administrador e verificar que é recusado.
 
-Um utilizador registado e com subscrição ativa deve ter a capacidade de cancelar a sua subscrição.
-User Story - Como utilizador registado e subscrito, quero ter a capacidade de cancelar a minha subscrição a qualquer momento, para interromper o pagamento automático e evitar uma futura cobrança.
-DoD - Opção de cancelamento da subscrição na área de gestão de conta; Confirmação do cancelamento; Desativação da renovação automática do pagamento; Manutenção das funcionalidades de utilizador subscrito até ao fim do período de pagamento atual. 
-Testes - Confirmar a alteração de estado no sistema; verificar a continuação do acesso às funcionalidades de utilizador subscrito até à data de expiração.
+---
 
-Um utilizador com subscrição ativa deve poder ter a capacidade de fazer download de qualquer conteúdo publicado na aplicação.
-User Story - Como utilizador registado e subscrito, quero ter a capacidade de fazer download de qualquer conteúdo publicado na aplicação, para ter uma cópia comigo e poder usufruir da mesma à qualquer altura,
-DoD - Botão “download” ativado e funcional nas publicações apenas para os utilizadores registados subscritos; Ficheiro descarregado é armazenado no dispositivo no formato e qualidade original.
-Testes - Testar se o “botão” de download apenas pode ser utilizado pelos utilizadores subscritos; testar a integridade dos ficheiros que foram transferidos.
+## 4. Iniciar sessão
 
-Um utilizador com subscrição ativa deve ter acesso offline aos conteúdos que fez download.
-User Story - Como utilizador registado e subscrito, quero ter acesso e reproduzir offline os conteúdos descarregados, para poder usufruir dos mesmos quando não tiver acesso à internet.
-DoD - O separador “downloads” guarda devidamente as publicações transferidas pelo utilizador subscrito; O separador “downloads” é acessível e apresenta as publicações que foram transferidas; O reprodutor multimídia reproduz os ficheiros guardados localmente.
-Testes - Verificar se o conteúdo transferido é guardado neste separador; Testar offline esta funcionalidade.
+**Requisito:** O utilizador deve ser capaz de iniciar sessão com o nome de utilizador (ou email) e a palavra-chave utilizados na criação da sua conta.
 
-Qualquer utilizador registado pode denunciar determinada publicação por incumprimento dos termos de serviço.
-User Story - Como utilizador registado, quero ter a capacidade de denunciar publicações por quebrarem as regras dos termos de serviço da aplicação, para ajudar a manter a comunidade segura de conteúdos impróprios.
-DoD - Opção “denunciar” está presente em todos os tipos de publicações; Formulário simples com as razões da denúncia; As denúncias enviadas e registradas com sucesso são enviadas para uma fila de moderação a ser atendida por um administrador, Impossibilidade de um mesmo utilizador enviar múltiplas denúncias do mesmo post.
-Testes - Submeter uma denúncia numa publicação; Verificar se a denúncia é recebida na fila de moderação. 
+**User Story:** Como utilizador registado, quero iniciar sessão com o meu nome de utilizador (ou email) e palavra-chave, para aceder à minha conta, aos meus conteúdos e às funcionalidades de registado. *(Reescrita: a anterior era circular.)*
 
-Uma publicação sinalizada por meio de denúncia deve ser revista por um administrador.
-User Story - Como administrador, quero ter a capacidade de rever uma publicação denunciada por um utilizador registado, para cumprir as minhas funções de moderação.
-DoD - O painel de moderação do administrador apresenta as denúncias sinalizadas, agrupando-as por número de denúncias; O administrador dispõe da capacidade de ignorar a denúncia, eliminar a publicação, suspender ou banir o utilizador.
-Testes - Testar o funcionamento da interface. 
+**DoD:**
+- Os dados são autenticados e o utilizador é redirecionado para o Feed.
+- Credenciais erradas mostram uma mensagem de erro e voltam ao login.
+- Após 5 tentativas falhadas consecutivas, a conta fica bloqueada durante 15 minutos (D23).
+- Contas com o email por confirmar não iniciam sessão (Req. 2); contas suspensas ou banidas seguem o Req. 3.
 
-Um utilizador registado deve receber notificações, na aplicação, sempre que haja interações com uma das suas publicações.
-User Story - Como utilizador registado, quero receber notificações sempre que outros utilizadores interajam com as minhas publicações, para saber a interação da comunidade com as minhas publicações.
-DoD - Centro de atividade representado no feed por um sino com um contador de mensagens não lidas; Disparo automático de notificação sempre que outro utilizador comentar, gostar ou responder a uma publicação do utilizador; Clicar na notificação direciona o utilizador diretamente para a publicação/comentário em questão.
-Testes - Publicar uma interação numa publicação e verificar o estado da notificação na conta lesada.
+**Testes:**
+- Login com credenciais válidas e inválidas.
+- 5 falhas seguidas e verificar o bloqueio; verificar que o login volta a funcionar passados 15 minutos.
+- Verificar que o contador de falhas volta a zero depois de um login bem-sucedido.
+- Tentar login com email por confirmar.
 
-Um utilizador registado deve receber sugestões reativas com base nos conteúdos por ele consumidos.
-User Story - Como utilizador registado, quero que o meu feed seja reativo aos meus gostos, para poder ver o tipo de conteúdo que mais aprecio.
-DoD -  Algoritmo do feed priorizar publicações de categorias e autores com os quais o utilizador interagiu recentemente, tendo em consideração os gostos, comentários e tempo de visualização; Atualização dinâmica do feed principal com base nas preferências detectadas.
-Testes - testar o algoritmo através de interagir ativamente com publicações de uma determinada categoria e verificar se o feed passa a apresentar uma maior taxa de conteúdos semelhantes. 
+---
 
-A aplicação deve possuir um separador destinado as definições onde o utilizador pode gerir a sua conta, permissões, notificações, opções de acessibilidade, subscrição
-User Story - Como utilizador registado, quero ter acesso a um separador onde estejam presentes todas as definições da aplicação, para poder gerir a minha conta, permissões, notificações, preferências de acessibilidade e o estado da minha subscrição num único local.
-DoD - Separador “definições” acessível a partir da página principal e da página do utilizador; A secção “conta” permite a consulta e alteração de dados pessoais, palavra-chave e eliminação da conta; Secção “permissões” permite ativar ou desativar as permissões concedidas à aplicação (cookies); Secção “notificações” permite personalizar a recepção de alertas (push, email e notificações internas por tipo de interatividade); Secção “acessibilidade” disponibiliza opções funcionais de acessibilidade (ex: ajuste de tamanho de texto, modo de alto contraste e otimização para leitores de ecrã); Secção “subscrição” apresenta o plano atual, histórico/detalhes e atalhos para gestão/cancelamento do plano; Qualquer alteração guardada nas definições é aplicada e persistida imediatamente na aplicação.
-Testes - Aceder ao ecrã de definições e verificação da presença e carregamento correto de todas as secções; Alterar definições e verificar a sua persistência após logout. 
+## 5. Recuperar o acesso
 
-	25) Os utilizadores registados devem poder alterar ou eliminar as suas próprias publicações e comentários.
-User Story - Como utilizador registado, quero poder alterar ou eliminar as minhas publicações e comentários, para poder alterar as minhas interações caso tenha cometido um erro na sua publicação ou garantir a minha privacidade caso deseje que estas deixem de ser públicas.
-DoD - A opção de alteração e eliminação da publicação está presente em todas as publicações e comentários do utilizador; Esta opção apenas aparece nas publicações e comentários do utilizador em questão e não nas de outros utilizadores. 
-Testes - Testar a alteração e eliminação de publicações e ver se os resultados são permanentes; Verificar se outro utilizador não é capaz de alterar ou eliminar publicações que não sejam suas. 
+**Requisito:** Um utilizador registado deve poder recuperar o acesso à sua conta por meio de um formulário acessível no menu de login.
 
-	26) O sistema deve permitir sugerir música durante a leitura de um livro, servindo como música de fundo, vice versa. 
-User Story - Como utilizador registado e subscrito, quero que o sistema sugira música ou livros sempre que estou a consumir um destes dois conteúdos, para ter uma experiência mais imersiva.
-DoD - A recomendação da música tem como base as tags da música ou livro; O utilizador pode permitir a reprodução da sugestão com base no seu input próprio (clicar e aceitar a sugestão).
-Testes - Testar a recomendação em vários livros e músicas; Verificar se o utilizador consegue aceitar ou rejeitar estas sugestões
-	
-	27) O sistema deve permitir que todos os conteúdos sejam descritos com tags, devendo dispor de pelo menos um.
-User Story - Como utilizador registado e subscrito, quero que os conteúdos da plataforma disponham de tags identificativas da sua categoria e conteúdos, para poder identificar o tipo de conteúdo que me interessa e conseguir identificar rapidamente o que cada publicação trata.
-DoD - O sistema suporta a associação de de tags em qualquer conteúdo; Validação garante que todo o conteúdo na plataforma deve ter obrigatoriamente uma tag; As tags são representadas visualmente nas publicações entre o texto que o autor pode colocar e o conteúdo da publicação; Clicar na tag redireciona para uma página de listagem/filtragem de conteúdos associados a essa mesma tag; As tags podem ser alteradas e eliminadas pelo utilizador, devendo ficar sempre uma obrigatória.
-Testes - Criar um novo conteúdo preenchendo os dados obrigatórios e associando pelo menos 1 tag válida; Tentar criar/publicar um conteúdo sem associar nenhuma tag; Clicar numa tag específica a partir de um conteúdo 
+**User Story:** Como utilizador registado, quero solicitar a recuperação do acesso à minha conta, para poder redefinir a minha palavra-chave.
 
-	28) O sistema deve dispor de um leitor de música integrado 
-User Story - Como utilizador registado e subscrito, quero um leitor de música integrado na plataforma, para poder ouvir música na plataforma enquanto interajo com outros conteúdos.
-DoD - Controlos básicos Play, Pause, Avançar, Recuar, Controlo de Volume e Barra de Progresso; O leitor mantém a reprodução de áudio ativa (estado persistente/global) enquanto o utilizador navega por diferentes páginas/conteúdos da plataforma sem interrupções; Compatibilidade testada com os principais formatos de áudio suportados pelos browsers; Componente de leitor de música desenvolvido (UI/UX) acessível globalmente.
-Testes - Iniciar a reprodução de uma faixa de música e interagir com os botões de Play, Pause, regulação de volume e salto na barra de progresso; Iniciar a reprodução de uma música e navegar para outra seção/página da plataforma. 
+**DoD:**
+- Um link na página de login leva ao formulário.
+- É enviado um email com um token válido 1 hora e de uso único (D24).
+- Um novo formulário permite inserir a nova palavra-chave (mesmas regras do registo), guardada com hash.
 
-	29) O sistema deve permitir a criação de playlists.
-User Story - Como utilizador registado e subscrito, quero a capacidade de  criar as minhas próprias playlists das músicas disponíveis na plataforma, para poder customizar as músicas que posso ouvir no leitor de música.
-DoD - Estrutura de base de dados criada para gerir playlists por utilizador Interface gráfica desenvolvida para criação, edição e eliminação de playlists; Funcionalidade para reproduzir a playlist de forma sequencial ou aleatória.
-Testes - Aceder à área de música, criar uma nova playlist com um nome válido e adicionar músicas; Editar uma playlist existente e remover uma música; Selecionar a opção de reproduzir a playlist criada no leitor integrado.
+**Testes:**
+- Usar um token expirado, um já utilizado e um adulterado.
+- Testar o formulário e iniciar sessão com a nova palavra-chave, verificando que a antiga deixa de funcionar.
 
-	30) O sistema deve permitir a criação e gestão de grupos e comunidades, criadas pelos próprios utilizadores.
-User Story - Como utilizador registado e subscrito, quero ter a capacidade de criar e gerir grupos e comunidades, para poder criar espaços onde posso interagir com pessoas com os mesmos interesses como os meus.
-DoD - Módulo de grupos e comunidades implementado com suporte para criação; Papeis e permissões definidos; Funcionalidades de gestão para administradores do grupo; Fórum interno para publicação de conteúdos; 
-Testes -Preencher o formulário de criação de um novo grupo e submeter; Um administrador aceitar um pedido de adesão pendente de um novo utilizador e remover outro membro; Tentar aceder às definições de alteração do grupo ou expulsar outro elemento 
+---
 
-	31) O sistema deve permitir mensagens diretas entre utilizadores.
-User Story - Como utilizador registado e subscrito, quero ter a capacidade de enviar e receber mensagens diretas com outros utilizadores, para interagir diretamente com outros utilizadores da plataforma.
-DoD - Sistema de chat ponto-a-ponto implementado; Interface de chat desenvolvida; Validação de segurança: apenas utilizadores registados e subscritos podem iniciar conversas e trocar mensagens; Indicadores visuais de estado; O sistema permite a edição de mensagem enviadas até a 5 minutos de envio.
-Testes - Testar o envio de mensagens; Fechar a janela de chat e voltar a abri-la após atualizar a página.
+## 6. Eliminar a conta
+
+**Requisito:** Um utilizador registado deve ter a opção de eliminar a sua conta, nas Definições.
+
+**User Story:** Como utilizador registado, quero eliminar a minha conta, para garantir a remoção dos meus dados pessoais.
+
+**DoD:**
+- Opção em Definições, secção Conta, com pedido de confirmação e inserção da palavra-chave (D08).
+- São apagados todos os dados do utilizador; os registos de pagamento ficam anonimizados (D31).
+- Nas comunidades que criou, a administração passa ao membro mais antigo; se não houver membros, a comunidade é apagada (D33).
+- A sessão é fechada automaticamente.
+
+**Testes:**
+- Eliminar uma conta e verificar que o utilizador não consegue voltar a iniciar sessão. *(Corrigido: o texto original estava truncado.)*
+- Verificar na base de dados que os dados foram removidos e que os pagamentos ficaram anonimizados.
+- Eliminar o criador de uma comunidade com membros e outra sem membros.
+
+---
+
+## 7. Papéis de utilizador
+
+**Requisito:** O sistema deve permitir a diferença entre um utilizador registado, um subscrito e um administrador.
+
+**User Story:** Como administrador, quero que exista uma diferenciação entre os papéis de utilizador, para garantir a segurança e integridade da plataforma.
+
+**DoD:**
+- Sistema de permissões baseado em papéis (RBAC) implementado segundo a tabela de papéis e permissões em `Requisitos_LLM.md`. *(Corrigido: "BRAC".)*
+- A interface do administrador dispõe de ferramentas de moderação.
+
+**Testes:**
+- Verificar que utilizadores não administradores não acedem às ferramentas do administrador.
+- Verificar que um registado sem subscrição não consegue fazer download.
+
+---
+
+## 8. Administrador
+
+**Requisito:** O administrador deve ter as mesmas capacidades que um utilizador subscrito, mais a capacidade de suspender e banir utilizadores com conta (exceto outros administradores) e de eliminar publicações, diretamente ou a partir das denúncias.
+
+**User Story:** Como administrador, quero ter acesso a todas as funcionalidades da aplicação e dispor de ferramentas de moderação, para garantir a segurança da comunidade e executar a minha função de moderação.
+
+**DoD:**
+- O administrador tem todas as permissões de um subscrito.
+- A interface do administrador dispõe das ferramentas de moderação (D01).
+
+**Testes:**
+- Testar as ferramentas do administrador em publicações e contas criadas para esse fim, diretamente e a partir de denúncias.
+
+---
+
+## 9. Perfil pessoal
+
+**Requisito:** O utilizador registado deve dispor de um perfil onde consiga ver o conteúdo que publicou e o seu histórico de interações com outras publicações.
+
+**User Story:** Como utilizador registado, quero dispor de uma página pessoal, para consultar todo o conteúdo com o qual interagi.
+
+**DoD:**
+- Perfil pessoal com separadores para publicações, comentários, favoritos e downloads, e um atalho para as Definições (D08).
+- Scroll infinito em cada separador. *(Reescrito: o original dizia "scroll infinito da mesma".)*
+
+**Testes:**
+- Criar publicações e comentários e verificar que aparecem logo no perfil.
+- Com 1000 publicações e comentários, verificar que cada separador carrega em menos de 3 segundos (D36).
+
+---
+
+## 10. Favoritos
+
+**Requisito:** Um utilizador registado deve poder criar uma lista de favoritos onde guarda as publicações para ver mais tarde, podendo removê-las quando quiser.
+
+**User Story:** Como utilizador registado, quero criar uma lista de favoritos, para guardar as publicações de que gostei e ter acesso a elas mais tarde.
+
+**DoD:**
+- Separador de favoritos no perfil pessoal.
+- Ícone de favorito em todas as publicações, separado do botão de gosto (D03).
+- Adição e remoção em tempo real (AJAX).
+
+**Testes:**
+- Adicionar e remover publicações dos favoritos.
+- Verificar que os favoritos se mantêm depois do logout.
+
+---
+
+## 11. Publicar conteúdos
+
+**Requisito:** Os utilizadores registados devem poder publicar conteúdos próprios, textuais, musicais, visuais (imagens e vídeo) ou documentos, com pelo menos uma tag.
+
+**User Story:** Como utilizador registado, quero publicar conteúdos próprios, para partilhar as minhas ideias e criações.
+
+**DoD:**
+- Formulário de criação de publicação com upload de ficheiros.
+- Validação do tipo de ficheiro (PDF, JPEG, PNG, MP3, MP4) e do tamanho: imagem 10 MB, PDF 50 MB, MP3 30 MB, vídeo 200 MB (D25).
+- Pelo menos uma tag obrigatória (D02).
+- Ficheiros guardados em armazenamento local, através de uma camada que permita trocar por cloud; a ligação fica registada na base de dados (D19).
+
+**Testes:**
+- Testar o upload dos vários tipos de ficheiro e de tipos não permitidos.
+- Testar os limites de tamanho (no limite e acima).
+- Tentar publicar sem tags.
+
+---
+
+## 12. Estrutura das publicações e comentários
+
+**Requisito:** Os conteúdos publicados dividem-se no elemento publicado pelo autor (texto e, opcionalmente, uma imagem, vídeo, música ou documento) e nos comentários. Qualquer registado pode gostar de uma publicação.
+
+**User Story:** Como utilizador registado, quero visualizar o conteúdo principal da publicação e os comentários, para consumir o conteúdo, gostar dele e interagir com os comentários.
+
+**DoD:**
+- Layout com o autor, texto e multimédia no topo e os comentários no fundo.
+- Botão "responder" para submeter um comentário, disponível para todos os registados.
+- Clicar na publicação expande-a e permite ler todos os comentários, com scroll infinito.
+- Botão de gosto com contador, separado do favorito (D03).
+- Um comentário eliminado que tem respostas aparece como "[comentário eliminado]" (D32).
+
+**Testes:**
+- Verificar que a interface mostra tudo corretamente, no estado normal e expandido.
+- Submeter comentários e verificar que aparecem na publicação.
+- Gostar e retirar o gosto, verificando o contador.
+
+---
+
+## 13. Responder a comentários
+
+**Requisito:** Qualquer utilizador registado deve poder responder a um comentário numa publicação, sem limite de profundidade.
+
+**User Story:** Como utilizador registado, quero responder diretamente a comentários específicos dentro de uma publicação, para manter discussões encadeadas.
+
+**DoD:**
+- Botão "responder" debaixo de todos os comentários e respostas.
+- Respostas apresentadas de forma encadeada sob o comentário pai, a qualquer profundidade (D28).
+
+**Testes:**
+- Criar respostas a um comentário e a uma resposta, várias vezes seguidas.
+- Verificar que a apresentação fica encadeada sob o comentário pai.
+
+---
+
+## 14. Pesquisa
+
+**Requisito:** Qualquer utilizador deve poder pesquisar por publicações e por utilizadores dentro da aplicação.
+
+**User Story:** Como utilizador, quero pesquisar por um termo ou nome de utilizador, para encontrar conteúdo que me represente.
+
+**DoD:**
+- Barra de pesquisa funcional no topo da aplicação, com pesquisa por palavras-chave.
+- Resultados divididos num separador de utilizadores e noutro de publicações.
+- Clicar num utilizador abre a sua página pública, com as publicações dele (D05).
+- Estado próprio para a ausência de resultados.
+
+**Testes:**
+- Pesquisar termos parciais e nomes de utilizador.
+- Pesquisar termos que não existem.
+- Testar caracteres especiais.
+- Abrir a página pública de um utilizador a partir dos resultados.
+
+---
+
+## 15. Subscrever
+
+**Requisito:** Um utilizador registado deve poder subscrever-se à aplicação (plano mensal único, com preço configurável).
+
+**User Story:** Como utilizador registado, quero subscrever-me à aplicação, para poder fazer download de conteúdo e usá-lo offline.
+
+**DoD:**
+- Opção de subscrição em Definições, secção Subscrição.
+- Plano mensal único, com o preço definido em configuração (D27).
+- Formulário para inserção dos dados.
+- O estado do utilizador passa a subscrito na base de dados depois de o pagamento estar confirmado (Req. 16).
+- Elemento gráfico junto à foto do utilizador, na página pessoal e em todas as suas publicações.
+- A subscrição desbloqueia apenas o download e o acesso offline (D04).
+
+**Testes:**
+- Validar a mudança de estado do utilizador.
+- Verificar a presença do elemento gráfico.
+- Verificar que um subscrito continua a ter acesso a tudo o que é aberto a registados.
+
+---
+
+## 16. Método de pagamento
+
+**Requisito:** O utilizador deve poder escolher o método de pagamento (MB Way ou Multibanco), com renovação automática nos dois métodos.
+
+**User Story:** Como utilizador registado, quero escolher o meu método de pagamento, para ter controlo sobre como pago a subscrição.
+
+**DoD:**
+- Escolha entre MB Way e Multibanco.
+- Integração com a SIBS simulada, com a interface preparada para a integração real (D16).
+- Estado do pagamento (pendente, pago, falhado); um pagamento Multibanco fica pendente até ser pago.
+- Renovação automática nos dois métodos (D07); no Multibanco, a validar com a SIBS real.
+
+**Testes:**
+- Testar o pagamento com os dois métodos, incluindo o caso pendente e o falhado.
+- Verificar a renovação no fim do período.
+
+---
+
+## 17. Cancelar a subscrição
+
+**Requisito:** Um utilizador registado com subscrição ativa deve poder cancelar a sua subscrição.
+
+**User Story:** Como utilizador registado e subscrito, quero cancelar a minha subscrição a qualquer momento, para interromper o pagamento automático e evitar uma futura cobrança.
+
+**DoD:**
+- Opção de cancelamento em Definições, secção Subscrição.
+- Confirmação do cancelamento.
+- Desativação da renovação automática.
+- As funcionalidades de subscrito mantêm-se até ao fim do período pago.
+
+**Testes:**
+- Confirmar a alteração de estado no sistema.
+- Verificar que o acesso de subscrito continua até à data de fim e termina nessa data.
+
+---
+
+## 18. Download
+
+**Requisito:** Um utilizador com subscrição ativa deve poder fazer download de qualquer publicação com ficheiro (imagem, vídeo, música ou PDF).
+
+**User Story:** Como utilizador registado e subscrito, quero fazer download das publicações com ficheiro, para ter uma cópia comigo e usufruir dela a qualquer altura.
+
+**DoD:**
+- Botão "download" ativo e funcional só para utilizadores subscritos, e só em publicações com ficheiro (D35).
+- O ficheiro descarregado mantém o formato e a qualidade originais.
+
+**Testes:**
+- Verificar que o botão só funciona para subscritos.
+- Verificar que publicações só de texto não têm download.
+- Testar a integridade dos ficheiros descarregados.
+
+---
+
+## 19. Acesso offline
+
+**Requisito:** Um utilizador com subscrição ativa deve ter acesso offline aos conteúdos que descarregou. Quando a subscrição termina, o conteúdo offline deixa de abrir e a lista mantém-se.
+
+**User Story:** Como utilizador registado e subscrito, quero aceder e reproduzir offline os conteúdos descarregados, para usufruir deles quando não tiver internet.
+
+**DoD:**
+- A aplicação é uma PWA, com Service Worker e armazenamento local (D13).
+- O separador "downloads" do perfil lista as publicações descarregadas.
+- O reprodutor reproduz os ficheiros guardados localmente.
+- Quando a subscrição termina, os ficheiros deixam de abrir e a lista mantém-se (D20).
+
+**Testes:**
+- Verificar que o conteúdo descarregado aparece no separador.
+- Testar a reprodução sem ligação à internet.
+- Terminar a subscrição e verificar que o conteúdo deixa de abrir e a lista se mantém.
+
+---
+
+## 20. Denunciar publicações
+
+**Requisito:** Qualquer utilizador registado pode denunciar uma publicação por incumprimento dos termos de serviço, uma só vez por publicação.
+
+**User Story:** Como utilizador registado, quero denunciar publicações que quebrem os termos de serviço, para ajudar a manter a comunidade segura.
+
+**DoD:**
+- Opção "denunciar" em todos os tipos de publicação.
+- Formulário simples com as razões da denúncia.
+- As denúncias registadas seguem para a fila de moderação.
+- Um utilizador não pode denunciar a mesma publicação mais do que uma vez.
+
+**Testes:**
+- Submeter uma denúncia e verificar que chega à fila de moderação.
+- Tentar denunciar a mesma publicação uma segunda vez e verificar que é recusado.
+
+---
+
+## 21. Rever denúncias
+
+**Requisito:** Uma publicação denunciada deve ser revista por um administrador.
+
+**User Story:** Como administrador, quero rever as publicações denunciadas, para cumprir as minhas funções de moderação.
+
+**DoD:**
+- O painel de moderação mostra uma linha por publicação denunciada, com o total de denúncias, da mais para a menos denunciada (D29).
+- O administrador pode ignorar a denúncia, eliminar a publicação, suspender ou banir o autor (D01).
+
+**Testes:** *(Reescritos: o original não era verificável.)*
+- Denunciar três publicações com 1, 2 e 3 denúncias e verificar a ordem do painel.
+- Testar cada uma das quatro ações e verificar o resultado (denúncia ignorada, publicação eliminada, autor suspenso, autor banido).
+
+---
+
+## 22. Notificações
+
+**Requisito:** Um utilizador registado deve receber notificações (internas, por email e push) sempre que haja interações com uma das suas publicações.
+
+**User Story:** Como utilizador registado, quero receber notificações quando outros utilizadores interagem com as minhas publicações, para saber como a comunidade reage.
+
+**DoD:**
+- Sino no feed com contador de notificações não lidas, atualizado por polling (D15).
+- Notificação automática quando outro utilizador comenta, gosta ou responde a uma publicação ou comentário do utilizador.
+- Push através das notificações do browser enquanto o site está aberto (D14), e email, segundo as preferências nas Definições (D06).
+- Clicar na notificação leva diretamente à publicação ou comentário.
+
+**Testes:**
+- Fazer uma interação com uma publicação e verificar o estado da notificação na conta afetada, em cada canal.
+- Desativar um canal nas Definições e verificar que deixa de receber.
+
+---
+
+## 23. Sugestões reativas
+
+**Requisito:** Um utilizador registado deve receber sugestões reativas no feed com base nos conteúdos que consome, mediante o seu consentimento.
+
+**User Story:** Como utilizador registado, quero que o meu feed reaja aos meus gostos, para ver o tipo de conteúdo de que mais gosto.
+
+**DoD:**
+- O algoritmo do feed prioriza categorias e autores com os quais o utilizador interagiu recentemente (gostos, comentários, tempo de visualização).
+- O feed atualiza dinamicamente com base nas preferências detetadas.
+- Só funciona com o consentimento do utilizador, que pode retirá-lo nas Definições (D39).
+
+**Testes:**
+- Interagir com 10 publicações de uma categoria e verificar que pelo menos 60% dos conteúdos do feed pertencem a essa categoria (D36).
+- Retirar o consentimento e verificar que o feed deixa de ser personalizado.
+
+---
+
+## 24. Definições
+
+**Requisito:** A aplicação deve possuir um separador de Definições onde o utilizador gere a conta, as permissões, as notificações, a acessibilidade, a subscrição e a privacidade.
+
+**User Story:** Como utilizador registado, quero um separador com todas as definições, para gerir tudo num único local.
+
+**DoD:**
+- Separador "Definições" acessível a partir do feed e do perfil.
+- Conta: consulta e alteração dos dados pessoais, da palavra-chave e eliminação da conta.
+- Permissões: ativar ou desativar o consentimento de cookies.
+- Notificações: escolher canais (internas, email, push) e tipos de interação.
+- Acessibilidade (WCAG 2.1 AA): tamanho do texto, alto contraste e otimização para leitores de ecrã.
+- Subscrição: plano atual, histórico de pagamentos, gestão e cancelamento.
+- Privacidade: exportação dos dados pessoais e consentimento para o feed personalizado.
+- Qualquer alteração é aplicada e guardada imediatamente.
+
+**Testes:**
+- Aceder às Definições e verificar o carregamento de todas as secções.
+- Alterar definições e verificar que se mantêm depois do logout.
+- Exportar os dados pessoais e verificar o conteúdo do ficheiro.
+
+---
+
+## 25. Alterar e eliminar publicações e comentários
+
+**Requisito:** Os utilizadores registados devem poder alterar ou eliminar as suas próprias publicações e comentários.
+
+**User Story:** Como utilizador registado, quero alterar ou eliminar as minhas publicações e comentários, para corrigir erros ou garantir a minha privacidade.
+
+**DoD:**
+- A opção de alterar e eliminar existe em todas as publicações e comentários do próprio utilizador, e só nos dele.
+- Um comentário eliminado que tem respostas fica como "[comentário eliminado]"; sem respostas, é apagado (D32).
+
+**Testes:**
+- Alterar e eliminar publicações e comentários e verificar que o resultado é permanente.
+- Eliminar um comentário com respostas e verificar que as respostas se mantêm.
+- Verificar que outro utilizador não consegue alterar nem eliminar conteúdo que não é seu.
+
+---
+
+## 26. Sugerir música ao ler um livro
+
+**Requisito:** O sistema deve sugerir música durante a leitura de um livro (PDF) e vice-versa, servindo como música de fundo.
+
+**User Story:** Como utilizador registado, quero que o sistema sugira música ou livros quando estou a consumir um deles, para ter uma experiência mais imersiva.
+
+**DoD:**
+- Leitor de PDF integrado na plataforma (D18).
+- A recomendação baseia-se nas tags da música ou do livro.
+- O utilizador aceita ou rejeita a sugestão; ao aceitar, a reprodução começa.
+
+**Testes:**
+- Testar a recomendação em vários livros e músicas.
+- Aceitar e rejeitar sugestões e verificar o resultado.
+
+---
+
+## 27. Tags
+
+**Requisito:** O sistema deve permitir que todos os conteúdos sejam descritos com tags, devendo dispor de pelo menos uma.
+
+**User Story:** Como utilizador registado, quero que os conteúdos tenham tags, para identificar rapidamente o tipo de conteúdo e o tema de cada publicação. *(Corrigido: já não é só "registado e subscrito", D02.)*
+
+**DoD:**
+- O sistema suporta a associação de tags a qualquer conteúdo, e a validação exige pelo menos uma.
+- As tags aparecem nas publicações, entre o texto do autor e o conteúdo.
+- Clicar numa tag leva a uma página de listagem dos conteúdos com essa tag (acessível também a convidados).
+- O autor pode alterar e eliminar tags, ficando sempre pelo menos uma.
+
+**Testes:**
+- Criar um conteúdo com pelo menos uma tag válida.
+- Tentar publicar sem tags.
+- Clicar numa tag e verificar a listagem.
+- Tentar eliminar a última tag de uma publicação e verificar que é recusado.
+
+---
+
+## 28. Leitor de música integrado
+
+**Requisito:** O sistema deve dispor de um leitor de música integrado, que continua a tocar durante a navegação.
+
+**User Story:** Como utilizador registado, quero um leitor de música integrado, para ouvir música enquanto interajo com outros conteúdos.
+
+**DoD:**
+- Controlos de play, pause, avançar, recuar, volume e barra de progresso.
+- O leitor fica fixo e só a área principal é carregada por AJAX, por isso o áudio não é interrompido ao navegar (D12).
+- Compatibilidade testada com os formatos de áudio suportados pelos browsers.
+- Componente acessível em todas as páginas.
+
+**Testes:**
+- Iniciar uma faixa e testar play, pause, volume e salto na barra de progresso.
+- Iniciar uma música, navegar para outra página e verificar que não pára.
+
+---
+
+## 29. Playlists
+
+**Requisito:** O sistema deve permitir a criação de playlists.
+
+**User Story:** Como utilizador registado, quero criar playlists com as músicas da plataforma, para personalizar o que ouço no leitor.
+
+**DoD:**
+- Estrutura na base de dados para playlists por utilizador.
+- Interface para criar, editar e eliminar playlists.
+- Reprodução sequencial ou aleatória.
+
+**Testes:**
+- Criar uma playlist com um nome válido e adicionar músicas.
+- Editar a playlist e remover uma música.
+- Reproduzir a playlist no leitor, em modo sequencial e aleatório.
+
+---
+
+## 30. Comunidades
+
+**Requisito:** O sistema deve permitir a criação e gestão de comunidades, públicas ou privadas, criadas pelos próprios utilizadores.
+
+**User Story:** Como utilizador registado, quero criar e gerir comunidades, para ter espaços onde interagir com pessoas com os mesmos interesses.
+
+**DoD:**
+- Criação de comunidades, em que o criador escolhe se é pública (entrada livre) ou privada (por pedido) (D30).
+- Papéis dentro da comunidade: membro e administrador; o criador começa como administrador.
+- Em comunidades privadas, um administrador aprova ou recusa os pedidos de adesão.
+- Funcionalidades de gestão para administradores: aprovar pedidos, remover membros e alterar as definições.
+- Fórum interno para publicação de conteúdos.
+- Se o criador eliminar a conta, a administração passa ao membro mais antigo; sem membros, a comunidade apaga-se (D33).
+
+**Testes:** *(Reescritos, com resultado esperado.)*
+- Preencher o formulário de criação e verificar que a comunidade aparece e o criador é administrador.
+- Aderir a uma comunidade pública e verificar a entrada imediata.
+- Pedir adesão a uma privada, aprová-la como administrador e verificar a entrada; remover outro membro.
+- Tentar alterar definições ou expulsar membros como utilizador normal e verificar que é recusado.
+- Eliminar o criador e verificar a transferência da administração.
+
+---
+
+## 31. Mensagens diretas
+
+**Requisito:** O sistema deve permitir mensagens diretas entre utilizadores registados.
+
+**User Story:** Como utilizador registado, quero enviar e receber mensagens diretas com outros utilizadores, para interagir diretamente com eles.
+
+**DoD:**
+- Chat entre dois utilizadores, com mensagens guardadas no servidor e atualizadas por polling (D15).
+- Interface de chat.
+- Só utilizadores registados iniciam conversas e trocam mensagens.
+- Indicadores de estado: enviada e lida (D34).
+- Edição de mensagens enviadas até 5 minutos depois do envio.
+
+**Testes:**
+- Enviar mensagens entre duas contas e verificar a receção.
+- Verificar os estados enviada e lida.
+- Fechar o chat, atualizar a página e voltar a abrir, verificando que a conversa se mantém.
+- Editar uma mensagem antes dos 5 minutos e verificar que depois já não é possível.
