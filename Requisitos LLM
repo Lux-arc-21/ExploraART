@@ -4,11 +4,11 @@
 + A base de dados deve ser criada e mantida em MySQL
 + A ligação entre página web e base de dados deve ser realizada em Python versão 3.13.3
 + O Framework utilizado é o Flask, versão 3.1.3
-+ O código em Python deve utilizar snake_case para a denominação de variáveis, funções, parâmetros e colunas da base de dados. As rotas e as classes CSS mantêm hífenes (D45)
-+ Os identificadores (variáveis, funções, tabelas e colunas) ficam em português (D46)
-+ O JavaScript é simples, sem frameworks (D22)
-+ O código Python segue a PEP 8 e está organizado por módulos (D44)
-+ Os testes são manuais, documentados nos DoD, e automáticos com pytest nas funções críticas (D47)
++ O código em Python deve utilizar snake_case para a denominação de variáveis, funções, parâmetros e colunas da base de dados. As rotas e as classes CSS mantêm hífenes
++ Os identificadores (variáveis, funções, tabelas e colunas) ficam em português
++ O JavaScript é simples, sem frameworks
++ O código Python segue a PEP 8 e está organizado por módulos
++ Os testes são manuais, documentados nos DoD, e automáticos com pytest nas funções críticas
 
 # Glossário
 
@@ -22,18 +22,19 @@
 + **Página de utilizador**: versão pública do perfil de outro utilizador
 + **Definições**: separador único de gestão da conta
 + **Comunidades**: termo usado em toda a documentação e interface
++ **Áreas**: Música (ficheiros MP3), Livros (documentos PDF) e Arte (imagens e vídeos); as publicações só de texto aparecem apenas no feed
 
 # Papéis e permissões
 
 | Funcionalidade | Convidado | Registado | Subscrito | Administrador |
 |---|---|---|---|---|
-| Navegar, ver publicações, pesquisar, filtrar por tag, ver páginas de utilizador | Sim | Sim | Sim | Sim |
+| Navegar, ver publicações, pesquisar, filtrar por tag, navegar por áreas, ver páginas de utilizador | Sim | Sim | Sim | Sim |
 | Criar conta, confirmar email, recuperar acesso | Sim | Não | Não | Não |
 | Publicar, comentar, responder, gostar, favoritos, denunciar | Não | Sim | Sim | Sim |
 | Perfil, definições, notificações, sugestões reativas | Não | Sim | Sim | Sim |
 | Leitor de música, playlists, sugestões de música/livro | Não | Sim | Sim | Sim |
 | Comunidades e mensagens diretas | Não | Sim | Sim | Sim |
-| Subscrever | Não | Sim | (já subscrito) | Sim |
+| Subscrever | Não | Sim | (já subscrito) | (já subscrito) |
 | Download, acesso offline, cancelar subscrição | Não | Não | Sim | Sim |
 | Rever denúncias, suspender, banir, eliminar publicações | Não | Não | Não | Sim |
 
@@ -43,16 +44,16 @@ O administrador de uma comunidade (aprovar pedidos, remover membros, alterar def
 
 ## Requisitos Não Funcionais
 
-- Conformidade com o RGPD: aceitação dos termos de serviço e da política de privacidade no registo, exportação dos dados pessoais pelo utilizador, consentimento para o feed personalizado e banner de consentimento de cookies (D39).
-- Acessibilidade para todos os utilizadores, segundo a WCAG 2.1 nível AA (D40).
-- Tempo de resposta rápido: páginas em menos de 3 segundos e ações em menos de 15 segundos; uploads e downloads excluídos (D42).
-- Hash das palavras-chave e HTTPS na comunicação. Os restantes dados pessoais não são encriptados campo a campo (D41).
-- Código com fácil manutenção: PEP 8, módulos e comentários (D44).
-- Página web, instalável como PWA (D13).
-- Compatível com as versões atuais dos browsers Google Chrome, Opera GX, Brave, Mozilla Firefox e Microsoft Edge, com design responsivo para telemóvel (D43).
+- Conformidade com o RGPD: aceitação dos termos de serviço e da política de privacidade no registo, exportação dos dados pessoais pelo utilizador, consentimento para o feed personalizado e banner de consentimento de cookies.
+- Acessibilidade para todos os utilizadores, segundo a WCAG 2.1 nível AA.
+- Tempo de resposta rápido: páginas em menos de 3 segundos e ações em menos de 15 segundos; uploads e downloads excluídos.
+- Hash das palavras-chave e HTTPS na comunicação. Os restantes dados pessoais não são encriptados campo a campo.
+- Código com fácil manutenção: PEP 8, módulos e comentários.
+- Página web, instalável como PWA.
+- Compatível com as versões atuais dos browsers Google Chrome, Opera GX, Brave, Mozilla Firefox e Microsoft Edge, com design responsivo para telemóvel.
 - RBAC (controlo de acessos por papéis).
-- Garantir a persistência dos dados das contas dos utilizadores, com cópias de segurança regulares da base de dados (D44).
-- Interoperabilidade com o sistema SIBS. A integração é simulada, com a interface pronta para a integração real (D16).
+- Garantir a persistência dos dados das contas dos utilizadores, com cópias de segurança regulares da base de dados.
+- Interoperabilidade com o sistema SIBS. A integração é simulada, com a interface pronta para a integração real.
 
 ## Requisitos Funcionais
 
@@ -87,3 +88,4 @@ O administrador de uma comunidade (aprovar pedidos, remover membros, alterar def
 29. O sistema deve permitir a criação de playlists.
 30. O sistema deve permitir a criação e gestão de comunidades, públicas ou privadas, criadas pelos próprios utilizadores.
 31. O sistema deve permitir mensagens diretas entre utilizadores registados.
+32. O sistema deve organizar os conteúdos em áreas (Música, Livros e Arte), acessíveis através do menu principal, de acordo com o tipo de ficheiro publicado.
