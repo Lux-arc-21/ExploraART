@@ -1,4 +1,3 @@
-
 @startuml
 title Diagrama de Casos de Uso - ExploraART
 left to right direction
@@ -45,6 +44,7 @@ rectangle "Acesso e conta" as SYS_ACE {
   usecase "Gerir consentimento\nde cookies" as UC02
   usecase "Criar conta\n(aceitar termos e privacidade)" as UC03
   usecase "Confirmar email" as UC09
+  usecase "Reenviar email\nde confirmação" as UC09a
   usecase "Iniciar sessão" as UC04
   usecase "Terminar sessão" as UC05
   usecase "Solicitar recuperação\nde acesso" as UC06
@@ -63,6 +63,7 @@ rectangle "Perfil e definições" as SYS_PER {
   usecase "Gerir acessibilidade" as UC16
   usecase "Consultar subscrição" as UC17
   usecase "Exportar dados pessoais" as UC18
+  usecase "Gerir privacidade\n(consentimento do feed)" as UC18a
   usecase "Consultar página\nde utilizador" as UC19
 }
 
@@ -70,6 +71,7 @@ rectangle "Conteúdo e interação" as SYS_CON {
   usecase "Visualizar publicações" as UC20
   usecase "Pesquisar na plataforma" as UC21
   usecase "Filtrar por tag" as UC22
+  usecase "Navegar por área\n(Música, Livros, Arte)" as UC22a
   usecase "Publicar conteúdo" as UC23
   usecase "Associar tags (mínimo 1)" as UC24
   usecase "Alterar o próprio conteúdo" as UC25
@@ -123,6 +125,7 @@ Convidado --> UC01
 Convidado --> UC02
 Convidado --> UC03
 Convidado --> UC09
+Convidado --> UC09a
 Convidado --> UC04
 Convidado --> UC06
 Convidado --> UC07
@@ -130,6 +133,7 @@ Convidado --> UC19
 Convidado --> UC20
 Convidado --> UC21
 Convidado --> UC22
+Convidado --> UC22a
 
 ' ===== REGISTADO (herdado por Subscrito, Administrador e Administrador de comunidade) =====
 Registado --> UC02
@@ -144,10 +148,12 @@ Registado --> UC15
 Registado --> UC16
 Registado --> UC17
 Registado --> UC18
+Registado --> UC18a
 Registado --> UC19
 Registado --> UC20
 Registado --> UC21
 Registado --> UC22
+Registado --> UC22a
 Registado --> UC23
 Registado --> UC25
 Registado --> UC26
@@ -187,6 +193,7 @@ Admin --> UC64
 ' ===== ATORES EXTERNOS =====
 UC03 -- Email
 UC06 -- Email
+UC09a -- Email
 UC12 -- Email
 UC32 -- SIBS
 
@@ -203,20 +210,5 @@ UC61 ..> UC60 : <<extend>>
 UC62 ..> UC60 : <<extend>>
 UC63 ..> UC60 : <<extend>>
 UC64 ..> UC60 : <<extend>>
-
-note bottom of Admin
-  **Requisitos não-funcionais**
-  - Conformidade com o RGPD (termos e privacidade no registo,
-    exportação de dados, consentimento para o feed, cookies)
-  - Acessibilidade WCAG 2.1 AA
-  - Páginas < 3 s e ações < 15 s (uploads e downloads excluídos)
-  - Hash das palavras-chave e HTTPS
-  - Código de fácil manutenção (PEP 8, módulos)
-  - Web (PWA): versões atuais de Chrome, Opera GX, Brave,
-    Firefox e Edge, com design responsivo
-  - RBAC
-  - Persistência dos dados das contas (cópias de segurança)
-  - Interoperabilidade com o sistema SIBS (simulada)
-end note
 
 @enduml
