@@ -24,8 +24,8 @@
 
 **DoD:**
 - Formulário de registo com validação dos campos obrigatórios, feita no servidor.
-- Nome de utilizador com 3 a 50 caracteres (letras, números, ponto, hífen e underscore); email válido; palavra-chave com pelo menos 8 caracteres e confirmação igual (D37).
-- Aceitação obrigatória dos termos de serviço e da política de privacidade (D39).
+- Nome de utilizador com 3 a 50 caracteres (letras, números, ponto, hífen e underscore); email válido; palavra-chave com pelo menos 8 caracteres e confirmação igual.
+- Aceitação obrigatória dos termos de serviço e da política de privacidade.
 - Palavra-chave guardada com hash.
 - Envio de um email de confirmação com link válido durante 24 horas.
 - A conta só inicia sessão depois de o email ser confirmado, com opção de reenviar o email.
@@ -46,10 +46,10 @@
 **User Story:** Como administrador, quero poder suspender temporariamente ou banir permanentemente a conta de um utilizador, para salvaguardar a segurança da plataforma e o cumprimento dos termos de serviço.
 
 **DoD:**
-- A interface do administrador tem as opções de suspender e banir, aplicáveis diretamente a um utilizador ou a partir do painel de denúncias (D01).
-- Na suspensão, o administrador escolhe a data de fim; o motivo é obrigatório e escrito por ele (D26).
-- Um administrador não pode sancionar outro administrador (D26).
-- A sanção provoca o logout imediato: o estado da conta é verificado em cada pedido (D21).
+- A interface do administrador tem as opções de suspender e banir, aplicáveis diretamente a um utilizador ou a partir do painel de denúncias.
+- Na suspensão, o administrador escolhe a data de fim; o motivo é obrigatório e escrito por ele.
+- Um administrador não pode sancionar outro administrador.
+- A sanção provoca o logout imediato: o estado da conta é verificado em cada pedido.
 - O utilizador afetado não consegue iniciar sessão e vê o motivo (e a data de fim, se for suspensão).
 - A suspensão termina automaticamente na data de fim.
 
@@ -66,12 +66,12 @@
 
 **Requisito:** O utilizador deve ser capaz de iniciar sessão com o nome de utilizador (ou email) e a palavra-chave utilizados na criação da sua conta.
 
-**User Story:** Como utilizador registado, quero iniciar sessão com o meu nome de utilizador (ou email) e palavra-chave, para aceder à minha conta, aos meus conteúdos e às funcionalidades de registado. *(Reescrita: a anterior era circular.)*
+**User Story:** Como utilizador registado, quero iniciar sessão com o meu nome de utilizador (ou email) e palavra-chave, para aceder à minha conta, aos meus conteúdos e às funcionalidades de registado.
 
 **DoD:**
 - Os dados são autenticados e o utilizador é redirecionado para o Feed.
 - Credenciais erradas mostram uma mensagem de erro e voltam ao login.
-- Após 5 tentativas falhadas consecutivas, a conta fica bloqueada durante 15 minutos (D23).
+- Após 5 tentativas falhadas consecutivas, a conta fica bloqueada durante 15 minutos.
 - Contas com o email por confirmar não iniciam sessão (Req. 2); contas suspensas ou banidas seguem o Req. 3.
 
 **Testes:**
@@ -90,7 +90,7 @@
 
 **DoD:**
 - Um link na página de login leva ao formulário.
-- É enviado um email com um token válido 1 hora e de uso único (D24).
+- É enviado um email com um token válido 1 hora e de uso único.
 - Um novo formulário permite inserir a nova palavra-chave (mesmas regras do registo), guardada com hash.
 
 **Testes:**
@@ -106,13 +106,13 @@
 **User Story:** Como utilizador registado, quero eliminar a minha conta, para garantir a remoção dos meus dados pessoais.
 
 **DoD:**
-- Opção em Definições, secção Conta, com pedido de confirmação e inserção da palavra-chave (D08).
-- São apagados todos os dados do utilizador; os registos de pagamento ficam anonimizados (D31).
-- Nas comunidades que criou, a administração passa ao membro mais antigo; se não houver membros, a comunidade é apagada (D33).
+- Opção em Definições, secção Conta, com pedido de confirmação e inserção da palavra-chave.
+- São apagados todos os dados do utilizador; os registos de pagamento ficam anonimizados.
+- Nas comunidades que criou, a administração passa ao membro mais antigo; se não houver membros, a comunidade é apagada.
 - A sessão é fechada automaticamente.
 
 **Testes:**
-- Eliminar uma conta e verificar que o utilizador não consegue voltar a iniciar sessão. *(Corrigido: o texto original estava truncado.)*
+- Eliminar uma conta e verificar que o utilizador não consegue voltar a iniciar sessão.
 - Verificar na base de dados que os dados foram removidos e que os pagamentos ficaram anonimizados.
 - Eliminar o criador de uma comunidade com membros e outra sem membros.
 
@@ -125,7 +125,7 @@
 **User Story:** Como administrador, quero que exista uma diferenciação entre os papéis de utilizador, para garantir a segurança e integridade da plataforma.
 
 **DoD:**
-- Sistema de permissões baseado em papéis (RBAC) implementado segundo a tabela de papéis e permissões em `Requisitos_LLM.md`. *(Corrigido: "BRAC".)*
+- Sistema de permissões baseado em papéis (RBAC) implementado segundo a tabela de papéis e permissões em `Requisitos_LLM.txt`.
 - A interface do administrador dispõe de ferramentas de moderação.
 
 **Testes:**
@@ -142,7 +142,7 @@
 
 **DoD:**
 - O administrador tem todas as permissões de um subscrito.
-- A interface do administrador dispõe das ferramentas de moderação (D01).
+- A interface do administrador dispõe das ferramentas de moderação.
 
 **Testes:**
 - Testar as ferramentas do administrador em publicações e contas criadas para esse fim, diretamente e a partir de denúncias.
@@ -156,12 +156,12 @@
 **User Story:** Como utilizador registado, quero dispor de uma página pessoal, para consultar todo o conteúdo com o qual interagi.
 
 **DoD:**
-- Perfil pessoal com separadores para publicações, comentários, favoritos e downloads, e um atalho para as Definições (D08).
-- Scroll infinito em cada separador. *(Reescrito: o original dizia "scroll infinito da mesma".)*
+- Perfil pessoal com separadores para publicações, comentários, favoritos e downloads, e um atalho para as Definições.
+- Scroll infinito em cada separador.
 
 **Testes:**
 - Criar publicações e comentários e verificar que aparecem logo no perfil.
-- Com 1000 publicações e comentários, verificar que cada separador carrega em menos de 3 segundos (D36).
+- Com 1000 publicações e comentários, verificar que cada separador carrega em menos de 3 segundos.
 
 ---
 
@@ -173,7 +173,7 @@
 
 **DoD:**
 - Separador de favoritos no perfil pessoal.
-- Ícone de favorito em todas as publicações, separado do botão de gosto (D03).
+- Ícone de favorito em todas as publicações, separado do botão de gosto.
 - Adição e remoção em tempo real (AJAX).
 
 **Testes:**
@@ -190,9 +190,9 @@
 
 **DoD:**
 - Formulário de criação de publicação com upload de ficheiros.
-- Validação do tipo de ficheiro (PDF, JPEG, PNG, MP3, MP4) e do tamanho: imagem 10 MB, PDF 50 MB, MP3 30 MB, vídeo 200 MB (D25).
-- Pelo menos uma tag obrigatória (D02).
-- Ficheiros guardados em armazenamento local, através de uma camada que permita trocar por cloud; a ligação fica registada na base de dados (D19).
+- Validação do tipo de ficheiro (PDF, JPEG, PNG, MP3, MP4) e do tamanho: imagem 10 MB, PDF 50 MB, MP3 30 MB, vídeo 200 MB.
+- Pelo menos uma tag obrigatória.
+- Ficheiros guardados em armazenamento local, através de uma camada que permita trocar por cloud; a ligação fica registada na base de dados.
 
 **Testes:**
 - Testar o upload dos vários tipos de ficheiro e de tipos não permitidos.
@@ -211,8 +211,8 @@
 - Layout com o autor, texto e multimédia no topo e os comentários no fundo.
 - Botão "responder" para submeter um comentário, disponível para todos os registados.
 - Clicar na publicação expande-a e permite ler todos os comentários, com scroll infinito.
-- Botão de gosto com contador, separado do favorito (D03).
-- Um comentário eliminado que tem respostas aparece como "[comentário eliminado]" (D32).
+- Botão de gosto com contador, separado do favorito.
+- Um comentário eliminado que tem respostas aparece como "[comentário eliminado]".
 
 **Testes:**
 - Verificar que a interface mostra tudo corretamente, no estado normal e expandido.
@@ -229,7 +229,7 @@
 
 **DoD:**
 - Botão "responder" debaixo de todos os comentários e respostas.
-- Respostas apresentadas de forma encadeada sob o comentário pai, a qualquer profundidade (D28).
+- Respostas apresentadas de forma encadeada sob o comentário pai, a qualquer profundidade.
 
 **Testes:**
 - Criar respostas a um comentário e a uma resposta, várias vezes seguidas.
@@ -246,7 +246,7 @@
 **DoD:**
 - Barra de pesquisa funcional no topo da aplicação, com pesquisa por palavras-chave.
 - Resultados divididos num separador de utilizadores e noutro de publicações.
-- Clicar num utilizador abre a sua página pública, com as publicações dele (D05).
+- Clicar num utilizador abre a sua página pública, com as publicações dele.
 - Estado próprio para a ausência de resultados.
 
 **Testes:**
@@ -265,11 +265,11 @@
 
 **DoD:**
 - Opção de subscrição em Definições, secção Subscrição.
-- Plano mensal único, com o preço definido em configuração (D27).
+- Plano mensal único, com o preço definido em configuração.
 - Formulário para inserção dos dados.
 - O estado do utilizador passa a subscrito na base de dados depois de o pagamento estar confirmado (Req. 16).
 - Elemento gráfico junto à foto do utilizador, na página pessoal e em todas as suas publicações.
-- A subscrição desbloqueia apenas o download e o acesso offline (D04).
+- A subscrição desbloqueia apenas o download e o acesso offline.
 
 **Testes:**
 - Validar a mudança de estado do utilizador.
@@ -286,9 +286,9 @@
 
 **DoD:**
 - Escolha entre MB Way e Multibanco.
-- Integração com a SIBS simulada, com a interface preparada para a integração real (D16).
+- Integração com a SIBS simulada, com a interface preparada para a integração real.
 - Estado do pagamento (pendente, pago, falhado); um pagamento Multibanco fica pendente até ser pago.
-- Renovação automática nos dois métodos (D07); no Multibanco, a validar com a SIBS real.
+- Renovação automática nos dois métodos; no Multibanco, a validar com a SIBS real.
 
 **Testes:**
 - Testar o pagamento com os dois métodos, incluindo o caso pendente e o falhado.
@@ -321,7 +321,7 @@
 **User Story:** Como utilizador registado e subscrito, quero fazer download das publicações com ficheiro, para ter uma cópia comigo e usufruir dela a qualquer altura.
 
 **DoD:**
-- Botão "download" ativo e funcional só para utilizadores subscritos, e só em publicações com ficheiro (D35).
+- Botão "download" ativo e funcional só para utilizadores subscritos, e só em publicações com ficheiro.
 - O ficheiro descarregado mantém o formato e a qualidade originais.
 
 **Testes:**
@@ -338,10 +338,10 @@
 **User Story:** Como utilizador registado e subscrito, quero aceder e reproduzir offline os conteúdos descarregados, para usufruir deles quando não tiver internet.
 
 **DoD:**
-- A aplicação é uma PWA, com Service Worker e armazenamento local (D13).
+- A aplicação é uma PWA, com Service Worker e armazenamento local.
 - O separador "downloads" do perfil lista as publicações descarregadas.
 - O reprodutor reproduz os ficheiros guardados localmente.
-- Quando a subscrição termina, os ficheiros deixam de abrir e a lista mantém-se (D20).
+- Quando a subscrição termina, os ficheiros deixam de abrir e a lista mantém-se.
 
 **Testes:**
 - Verificar que o conteúdo descarregado aparece no separador.
@@ -375,10 +375,10 @@
 **User Story:** Como administrador, quero rever as publicações denunciadas, para cumprir as minhas funções de moderação.
 
 **DoD:**
-- O painel de moderação mostra uma linha por publicação denunciada, com o total de denúncias, da mais para a menos denunciada (D29).
-- O administrador pode ignorar a denúncia, eliminar a publicação, suspender ou banir o autor (D01).
+- O painel de moderação mostra uma linha por publicação denunciada, com o total de denúncias, da mais para a menos denunciada.
+- O administrador pode ignorar a denúncia, eliminar a publicação, suspender ou banir o autor.
 
-**Testes:** *(Reescritos: o original não era verificável.)*
+**Testes:**
 - Denunciar três publicações com 1, 2 e 3 denúncias e verificar a ordem do painel.
 - Testar cada uma das quatro ações e verificar o resultado (denúncia ignorada, publicação eliminada, autor suspenso, autor banido).
 
@@ -391,9 +391,9 @@
 **User Story:** Como utilizador registado, quero receber notificações quando outros utilizadores interagem com as minhas publicações, para saber como a comunidade reage.
 
 **DoD:**
-- Sino no feed com contador de notificações não lidas, atualizado por polling (D15).
+- Sino no feed com contador de notificações não lidas, atualizado por polling.
 - Notificação automática quando outro utilizador comenta, gosta ou responde a uma publicação ou comentário do utilizador.
-- Push através das notificações do browser enquanto o site está aberto (D14), e email, segundo as preferências nas Definições (D06).
+- Push através das notificações do browser enquanto o site está aberto, e email, segundo as preferências nas Definições.
 - Clicar na notificação leva diretamente à publicação ou comentário.
 
 **Testes:**
@@ -411,10 +411,10 @@
 **DoD:**
 - O algoritmo do feed prioriza categorias e autores com os quais o utilizador interagiu recentemente (gostos, comentários, tempo de visualização).
 - O feed atualiza dinamicamente com base nas preferências detetadas.
-- Só funciona com o consentimento do utilizador, que pode retirá-lo nas Definições (D39).
+- Só funciona com o consentimento do utilizador, que pode retirá-lo nas Definições.
 
 **Testes:**
-- Interagir com 10 publicações de uma categoria e verificar que pelo menos 60% dos conteúdos do feed pertencem a essa categoria (D36).
+- Interagir com 10 publicações de uma categoria e verificar que pelo menos 60% dos conteúdos do feed pertencem a essa categoria.
 - Retirar o consentimento e verificar que o feed deixa de ser personalizado.
 
 ---
@@ -450,7 +450,7 @@
 
 **DoD:**
 - A opção de alterar e eliminar existe em todas as publicações e comentários do próprio utilizador, e só nos dele.
-- Um comentário eliminado que tem respostas fica como "[comentário eliminado]"; sem respostas, é apagado (D32).
+- Um comentário eliminado que tem respostas fica como "[comentário eliminado]"; sem respostas, é apagado.
 
 **Testes:**
 - Alterar e eliminar publicações e comentários e verificar que o resultado é permanente.
@@ -466,7 +466,7 @@
 **User Story:** Como utilizador registado, quero que o sistema sugira música ou livros quando estou a consumir um deles, para ter uma experiência mais imersiva.
 
 **DoD:**
-- Leitor de PDF integrado na plataforma (D18).
+- Leitor de PDF integrado na plataforma.
 - A recomendação baseia-se nas tags da música ou do livro.
 - O utilizador aceita ou rejeita a sugestão; ao aceitar, a reprodução começa.
 
@@ -480,7 +480,7 @@
 
 **Requisito:** O sistema deve permitir que todos os conteúdos sejam descritos com tags, devendo dispor de pelo menos uma.
 
-**User Story:** Como utilizador registado, quero que os conteúdos tenham tags, para identificar rapidamente o tipo de conteúdo e o tema de cada publicação. *(Corrigido: já não é só "registado e subscrito", D02.)*
+**User Story:** Como utilizador registado, quero que os conteúdos tenham tags, para identificar rapidamente o tipo de conteúdo e o tema de cada publicação.
 
 **DoD:**
 - O sistema suporta a associação de tags a qualquer conteúdo, e a validação exige pelo menos uma.
@@ -504,7 +504,7 @@
 
 **DoD:**
 - Controlos de play, pause, avançar, recuar, volume e barra de progresso.
-- O leitor fica fixo e só a área principal é carregada por AJAX, por isso o áudio não é interrompido ao navegar (D12).
+- O leitor fica fixo e só a área principal é carregada por AJAX, por isso o áudio não é interrompido ao navegar.
 - Compatibilidade testada com os formatos de áudio suportados pelos browsers.
 - Componente acessível em todas as páginas.
 
@@ -539,14 +539,14 @@
 **User Story:** Como utilizador registado, quero criar e gerir comunidades, para ter espaços onde interagir com pessoas com os mesmos interesses.
 
 **DoD:**
-- Criação de comunidades, em que o criador escolhe se é pública (entrada livre) ou privada (por pedido) (D30).
+- Criação de comunidades, em que o criador escolhe se é pública (entrada livre) ou privada (por pedido).
 - Papéis dentro da comunidade: membro e administrador; o criador começa como administrador.
 - Em comunidades privadas, um administrador aprova ou recusa os pedidos de adesão.
 - Funcionalidades de gestão para administradores: aprovar pedidos, remover membros e alterar as definições.
 - Fórum interno para publicação de conteúdos.
-- Se o criador eliminar a conta, a administração passa ao membro mais antigo; sem membros, a comunidade apaga-se (D33).
+- Se o criador eliminar a conta, a administração passa ao membro mais antigo; sem membros, a comunidade apaga-se.
 
-**Testes:** *(Reescritos, com resultado esperado.)*
+**Testes:**
 - Preencher o formulário de criação e verificar que a comunidade aparece e o criador é administrador.
 - Aderir a uma comunidade pública e verificar a entrada imediata.
 - Pedir adesão a uma privada, aprová-la como administrador e verificar a entrada; remover outro membro.
@@ -562,10 +562,10 @@
 **User Story:** Como utilizador registado, quero enviar e receber mensagens diretas com outros utilizadores, para interagir diretamente com eles.
 
 **DoD:**
-- Chat entre dois utilizadores, com mensagens guardadas no servidor e atualizadas por polling (D15).
+- Chat entre dois utilizadores, com mensagens guardadas no servidor e atualizadas por polling.
 - Interface de chat.
 - Só utilizadores registados iniciam conversas e trocam mensagens.
-- Indicadores de estado: enviada e lida (D34).
+- Indicadores de estado: enviada e lida.
 - Edição de mensagens enviadas até 5 minutos depois do envio.
 
 **Testes:**
@@ -573,3 +573,26 @@
 - Verificar os estados enviada e lida.
 - Fechar o chat, atualizar a página e voltar a abrir, verificando que a conversa se mantém.
 - Editar uma mensagem antes dos 5 minutos e verificar que depois já não é possível.
+
+---
+
+## 32. Áreas de conteúdo (Música, Livros e Arte)
+
+**Requisito:** O sistema deve organizar os conteúdos em áreas (Música, Livros e Arte), acessíveis através do menu principal, de acordo com o tipo de ficheiro publicado.
+
+**User Story:** Como utilizador, quero aceder aos conteúdos por área (música, livros e arte), para encontrar rapidamente o tipo de conteúdo que me interessa.
+
+**DoD:**
+- Menu principal com as áreas Música, Livros e Arte, acessível no canto superior esquerdo.
+- A área Música apresenta as publicações com ficheiro MP3.
+- A área Livros apresenta as publicações com documento PDF.
+- A área Arte apresenta as publicações com imagem (JPEG ou PNG) ou vídeo (MP4).
+- As publicações só de texto não pertencem a nenhuma área e aparecem apenas no feed.
+- As áreas estão acessíveis a convidados e a utilizadores registados.
+- Existência de um estado para a situação de ausência de publicações numa área.
+
+**Testes:**
+- Publicar um ficheiro MP3, um PDF, uma imagem, um vídeo e uma publicação só de texto e verificar em que área aparece cada uma.
+- Verificar que a publicação só de texto aparece no feed e em nenhuma área.
+- Aceder a cada área como convidado e como utilizador registado.
+- Aceder a uma área sem publicações e verificar o estado de ausência de resultados.
