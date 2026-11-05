@@ -596,3 +596,20 @@
 - Verificar que a publicação só de texto aparece no feed e em nenhuma área.
 - Aceder a cada área como convidado e como utilizador registado.
 - Aceder a uma área sem publicações e verificar o estado de ausência de resultados.
+
+---
+
+## 33. Estilização
+
+**Requisito:** O sistema deve ter uma estilização amigo do utilizador e visualmente apelativo.
+
+**User Story:** Como utilizado, quero uma aplicação apelativa e com um design moderno, para ter uma experiência visual mais agradável.
+
+**DoD:**
+- Estilização visual com tons quentes.
+- de maneira a perder as cores fortes que vem automaticamente.
+- Linhas curvas inves de linhas retas.
+- Acessível ao utilizador.
+
+**Testes:**
+- Realizar um Run teste para verificar que o aspeto ficou como desejado.
