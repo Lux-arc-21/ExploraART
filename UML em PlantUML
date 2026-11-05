@@ -1,5 +1,3 @@
-# Diagrama de Casos de Uso
-
 @startuml
 title Diagrama de Casos de Uso - ExploraART
 left to right direction
@@ -11,15 +9,15 @@ actor "Convidado" as Convidado
 actor "Registado" as Registado
 actor "Subscrito" as Subscrito
 actor "Administrador" as Admin
-actor "Administrador\nde grupo" as AdminGrupo
+actor "Administrador\nde comunidade" as AdminComunidade
 actor "Serviço de email\n<<externo>>" as Email
-actor "SIBS\n<<externo>>" as SIBS
+actor "SIBS\n<<externo, simulado>>" as SIBS
 
 ' ===== HERANÇA DE PAPÉIS (RBAC) =====
-Convidado <|-- Registado
+' Convidado = utilizador sem sessão iniciada (com ou sem conta)
 Registado <|-- Subscrito
 Subscrito <|-- Admin
-Subscrito <|-- AdminGrupo
+Registado <|-- AdminComunidade
 
 ' ===== SISTEMA PRINCIPAL: os pacotes são representados como packages =====
 rectangle "Sistema ExploraART" {
@@ -33,7 +31,7 @@ rectangle "Sistema ExploraART" {
   }
   package "Música" as PK_MUS {
   }
-  package "Comunidade" as PK_COM {
+  package "Comunidades e mensagens" as PK_COM {
   }
   package "Moderação" as PK_MOD {
   }
@@ -44,7 +42,9 @@ rectangle "Sistema ExploraART" {
 rectangle "Acesso e conta" as SYS_ACE {
   usecase "Navegar sem conta" as UC01
   usecase "Gerir consentimento\nde cookies" as UC02
-  usecase "Criar conta" as UC03
+  usecase "Criar conta\n(aceitar termos e privacidade)" as UC03
+  usecase "Confirmar email" as UC09
+  usecase "Reenviar email\nde confirmação" as UC09a
   usecase "Iniciar sessão" as UC04
   usecase "Terminar sessão" as UC05
   usecase "Solicitar recuperação\nde acesso" as UC06
@@ -57,16 +57,21 @@ rectangle "Perfil e definições" as SYS_PER {
   usecase "Gerir favoritos" as UC11
   usecase "Consultar notificações" as UC12
   usecase "Consultar feed" as UC13
+  usecase "Receber sugestões\nreativas (com consentimento)" as UC13a
   usecase "Gerir dados da conta" as UC14
   usecase "Gerir preferências\nde notificações" as UC15
   usecase "Gerir acessibilidade" as UC16
   usecase "Consultar subscrição" as UC17
+  usecase "Exportar dados pessoais" as UC18
+  usecase "Gerir privacidade\n(consentimento do feed)" as UC18a
+  usecase "Consultar página\nde utilizador" as UC19
 }
 
 rectangle "Conteúdo e interação" as SYS_CON {
   usecase "Visualizar publicações" as UC20
   usecase "Pesquisar na plataforma" as UC21
   usecase "Filtrar por tag" as UC22
+  usecase "Navegar por área\n(Música, Livros, Arte)" as UC22a
   usecase "Publicar conteúdo" as UC23
   usecase "Associar tags (mínimo 1)" as UC24
   usecase "Alterar o próprio conteúdo" as UC25
@@ -74,6 +79,7 @@ rectangle "Conteúdo e interação" as SYS_CON {
   usecase "Comentar publicação" as UC27
   usecase "Responder a comentário" as UC28
   usecase "Denunciar publicação" as UC29
+  usecase "Gostar de publicação" as UC29a
 }
 
 rectangle "Subscrição e pagamentos" as SYS_SUB {
@@ -94,39 +100,44 @@ rectangle "Música" as SYS_MUS {
   usecase "Rejeitar sugestão\nde música/livro" as UC44
 }
 
-rectangle "Comunidade" as SYS_COM {
-  usecase "Criar grupo" as UC50
-  usecase "Pedir adesão a grupo" as UC51
-  usecase "Publicar no fórum\ndo grupo" as UC52
+rectangle "Comunidades e mensagens" as SYS_COM {
+  usecase "Criar comunidade\n(pública ou privada)" as UC50
+  usecase "Aderir (pública) ou pedir\nadesão (privada)" as UC51
+  usecase "Publicar no fórum\nda comunidade" as UC52
   usecase "Enviar mensagem direta" as UC53
   usecase "Editar mensagem\n(até 5 min)" as UC54
   usecase "Consultar conversas" as UC55
   usecase "Aprovar pedido\nde adesão" as UC56
-  usecase "Remover membro\ndo grupo" as UC57
-  usecase "Alterar definições\ndo grupo" as UC58
+  usecase "Remover membro\nda comunidade" as UC57
+  usecase "Alterar definições\nda comunidade" as UC58
 }
 
 rectangle "Moderação" as SYS_MOD {
-  usecase "Rever denúncias\n(agrupadas por nº)" as UC60
+  usecase "Rever denúncias\n(uma linha por publicação,\ncom total)" as UC60
   usecase "Ignorar denúncia" as UC61
   usecase "Eliminar publicação" as UC62
   usecase "Suspender utilizador" as UC63
   usecase "Banir utilizador" as UC64
 }
 
-' ===== CONVIDADO =====
+' ===== CONVIDADO (sem sessão iniciada) =====
 Convidado --> UC01
 Convidado --> UC02
 Convidado --> UC03
+Convidado --> UC09
+Convidado --> UC09a
+Convidado --> UC04
+Convidado --> UC06
+Convidado --> UC07
+Convidado --> UC19
 Convidado --> UC20
 Convidado --> UC21
 Convidado --> UC22
+Convidado --> UC22a
 
-' ===== REGISTADO (herdado por Subscrito, Admin e AdminGrupo) =====
-Registado --> UC04
+' ===== REGISTADO (herdado por Subscrito, Administrador e Administrador de comunidade) =====
+Registado --> UC02
 Registado --> UC05
-Registado --> UC06
-Registado --> UC07
 Registado --> UC08
 Registado --> UC10
 Registado --> UC11
@@ -136,44 +147,59 @@ Registado --> UC14
 Registado --> UC15
 Registado --> UC16
 Registado --> UC17
+Registado --> UC18
+Registado --> UC18a
+Registado --> UC19
+Registado --> UC20
+Registado --> UC21
+Registado --> UC22
+Registado --> UC22a
 Registado --> UC23
 Registado --> UC25
 Registado --> UC26
 Registado --> UC27
 Registado --> UC28
 Registado --> UC29
+Registado --> UC29a
 Registado --> UC30
+Registado --> UC40
+Registado --> UC41
+Registado --> UC42
+Registado --> UC43
+Registado --> UC44
+Registado --> UC50
+Registado --> UC51
+Registado --> UC52
+Registado --> UC53
+Registado --> UC54
+Registado --> UC55
 
-' ===== SUBSCRITO (herdado por Admin e AdminGrupo) =====
+' ===== SUBSCRITO (herdado por Administrador): só download, offline e cancelamento =====
 Subscrito --> UC33
 Subscrito --> UC34
 Subscrito --> UC35
-Subscrito --> UC40
-Subscrito --> UC41
-Subscrito --> UC42
-Subscrito --> UC43
-Subscrito --> UC44
-Subscrito --> UC50
-Subscrito --> UC51
-Subscrito --> UC52
-Subscrito --> UC53
-Subscrito --> UC54
-Subscrito --> UC55
 
-' ===== ADMINISTRADOR DE GRUPO =====
-AdminGrupo --> UC56
-AdminGrupo --> UC57
-AdminGrupo --> UC58
+' ===== ADMINISTRADOR DE COMUNIDADE (papel dentro de cada comunidade) =====
+AdminComunidade --> UC56
+AdminComunidade --> UC57
+AdminComunidade --> UC58
 
-' ===== ADMINISTRADOR (as restantes ações de moderação são extensões de UC60) =====
+' ===== ADMINISTRADOR (age diretamente ou a partir das denúncias) =====
 Admin --> UC60
+Admin --> UC62
+Admin --> UC63
+Admin --> UC64
 
 ' ===== ATORES EXTERNOS =====
 UC03 -- Email
 UC06 -- Email
+UC09a -- Email
+UC12 -- Email
 UC32 -- SIBS
 
 ' ===== INCLUDE =====
+UC03 ..> UC09 : <<include>>
+UC13 ..> UC13a : <<include>>
 UC23 ..> UC24 : <<include>>
 UC30 ..> UC31 : <<include>>
 UC31 ..> UC36 : <<include>>
@@ -184,19 +210,5 @@ UC61 ..> UC60 : <<extend>>
 UC62 ..> UC60 : <<extend>>
 UC63 ..> UC60 : <<extend>>
 UC64 ..> UC60 : <<extend>>
-
-note bottom of Admin
-  **Requisitos não-funcionais**
-  - Conformidade com o RGPD
-  - Acessibilidade para todos os utilizadores
-  - Tempo de resposta < 15 s
-  - Encriptação dos dados pessoais e de autenticação
-    (palavras-chave guardadas com hash)
-  - Código de fácil manutenção
-  - Web: Chrome, Opera GX, Brave, Firefox, Edge
-  - RBAC
-  - Persistência dos dados das contas
-  - Interoperabilidade com o sistema SIBS
-end note
 
 @enduml
