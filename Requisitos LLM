@@ -89,3 +89,5 @@ O administrador de uma comunidade (aprovar pedidos, remover membros, alterar def
 30. O sistema deve permitir a criação e gestão de comunidades, públicas ou privadas, criadas pelos próprios utilizadores.
 31. O sistema deve permitir mensagens diretas entre utilizadores registados.
 32. O sistema deve organizar os conteúdos em áreas (Música, Livros e Arte), acessíveis através do menu principal, de acordo com o tipo de ficheiro publicado.
+33. O sistema deve ter uma estilização amigo do utilizador e visualmente apelativo.
+
